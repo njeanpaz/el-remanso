@@ -1,0 +1,61 @@
+/* HABITACIONES */
+.rooms-section { background: var(--bg-white); }
+.rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+.room-card { background: var(--bg-white); border-radius: var(--radius-md); overflow: hidden; border: 1px solid rgba(0,0,0,.07); transition: transform var(--transition), box-shadow var(--transition); display: flex; flex-direction: column; }
+.room-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.room-featured { border: 2px solid var(--color-gold); box-shadow: 0 4px 20px rgba(183,149,11,.15); }
+
+.room-img-wrap { position: relative; height: 220px; background: var(--bg-cream); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.room-img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.room-card:hover .room-img { transform: scale(1.05); }
+.room-img-placeholder { font-size: 3rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: .3; pointer-events: none; }
+.room-img-wrap:not(.no-img) .room-img-placeholder { display: none; }
+
+.room-badge { position: absolute; top: 14px; left: 14px; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--color-ocean); color: #fff; padding: .3rem .8rem; border-radius: 4px; }
+.badge-gold { background: var(--color-gold); }
+
+.room-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; }
+.room-type { font-size: .72rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--color-green); margin-bottom: .4rem; }
+.room-name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--color-ocean); margin-bottom: .8rem; line-height: 1.2; }
+.room-desc { font-size: .9rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.3rem; flex: 1; }
+.room-tags { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+.room-tags li { font-size: .78rem; font-weight: 500; color: var(--color-ocean); background: rgba(15,53,84,.07); padding: .3rem .7rem; border-radius: 20px; }
+.room-btn { display: block; text-align: center; width: 100%; justify-content: center; }
+
+/* GALERÍA */
+.instalaciones-section { background: var(--bg-cream); }
+.gallery-grid { display: grid; grid-template-columns: 1.5fr 1fr; grid-template-rows: 220px 220px; gap: 1rem; max-width: 1100px; margin: 0 auto; }
+.gallery-item { border-radius: var(--radius-md); overflow: hidden; position: relative; background: var(--bg-cream); border: 1px solid rgba(0,0,0,.08); }
+.gallery-big { grid-row: span 2; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.gallery-item:hover img { transform: scale(1.04); }
+.gallery-placeholder { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--bg-cream), var(--bg-white)); }
+.gallery-placeholder::before { content: '📷'; font-size: 2.5rem; opacity: .3; }
+.gallery-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(10,31,46,.8), transparent); color: #fff; font-size: .82rem; font-weight: 500; padding: 1.5rem 1rem .8rem; letter-spacing: .04em; }
+
+/* FORMULARIO */
+.reserve-form-wrap { background: var(--bg-white); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-md); border: 1px solid rgba(0,0,0,.06); }
+.reserve-form { display: flex; flex-direction: column; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+.form-group { display: flex; flex-direction: column; gap: .45rem; }
+.form-full { margin-bottom: 1.5rem; }
+.form-group label { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--color-ocean); }
+.optional { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--text-muted); font-size: .78rem; }
+.form-group input, .form-group select, .form-group textarea { padding: .8rem 1rem; border: 1.5px solid rgba(0,0,0,.12); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: .93rem; color: var(--text-dark); background: var(--bg-white); transition: border-color var(--transition), box-shadow var(--transition); outline: none; appearance: none; -webkit-appearance: none; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--color-ocean); box-shadow: 0 0 0 3px rgba(15,53,84,.1); }
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); opacity: .6; }
+.form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; cursor: pointer; }
+.form-group textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+.form-note { text-align: center; margin-top: 1rem; font-size: .8rem; color: var(--text-muted); }
+.form-group input.error, .form-group select.error { border-color: #e53e3e; box-shadow: 0 0 0 3px rgba(229,62,62,.1); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) { .rooms-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 768px) {
+  .rooms-grid { grid-template-columns: 1fr; max-width: 480px; }
+  .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .gallery-big { grid-row: span 1; }
+  .gallery-item { height: 200px; }
+  .form-row { grid-template-columns: 1fr; }
+  .reserve-form-wrap { padding: 1.5rem; }
+}

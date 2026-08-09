@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>El Remanso – Hostería Turística Tonsupa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/components.css"/>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#inicio" class="nav-logo">
+        <span class="logo-text">El <em>Remanso</em></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#habitaciones">Habitaciones</a></li>
+        <li><a href="#instalaciones">Instalaciones</a></li>
+        <li><a href="#ubicacion">Ubicación</a></li>
+        <li><a href="#reservar" class="nav-btn">Reservar</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero" id="inicio">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">🌴 Tonsupa · Ecuador</span>
+      <h1 class="hero-title">
+        Tu paraíso<br/>
+        <em>junto al Pacífico</em>
+      </h1>
+      <p class="hero-sub">
+        Departamentos completos con cocina, sala y baño privado.<br/>
+        A solo 30 metros del mar.
+      </p>
+      <div class="hero-actions">
+        <a href="#reservar" class="btn btn-gold">Reservar ahora</a>
+        <a href="#habitaciones" class="btn btn-ghost">Ver habitaciones</a>
+      </div>
+    </div>
+    <div class="hero-scroll"><span></span><p>Desliza</p></div>
+  </section>
+
+  <div class="features-bar">
+    <div class="feature"><span class="feat-icon">🏖️</span><span>30 m de la playa</span></div>
+    <div class="feat-divider"></div>
+    <div class="feature"><span class="feat-icon">🏊</span><span>Piscina privada</span></div>
+    <div class="feat-divider"></div>
+    <div class="feature"><span class="feat-icon">🍳</span><span>Cocina equipada</span></div>
+    <div class="feat-divider"></div>
+    <div class="feature"><span class="feat-icon">📶</span><span>Wi-Fi incluido</span></div>
+    <div class="feat-divider"></div>
+    <div class="feature"><span class="feat-icon">🅿️</span><span>Parqueadero</span></div>
+  </div>
+
+  <section class="section rooms-section" id="habitaciones">
+    <div class="section-header">
+      <span class="eyebrow">Nuestras opciones</span>
+      <h2 class="section-title">Habitaciones & Departamentos</h2>
+      <p class="section-desc">Cada espacio es una mini-casita independiente con cocina, sala, habitación y baño privado.</p>
+    </div>
+    <div class="rooms-grid">
+
+      <div class="room-card">
+        <div class="room-img-wrap">
+          <img src="images/triple.jpg" alt="Departamento Triple" class="room-img"
+               onerror="this.parentElement.classList.add('no-img'); this.style.display='none'"/>
+          <div class="room-img-placeholder">🛏️</div>
+          <span class="room-badge">Triple</span>
+        </div>
+        <div class="room-body">
+          <p class="room-type">Departamento</p>
+          <h3 class="room-name">Departamento Triple</h3>
+          <p class="room-desc">Perfecto para grupos de 3. Literas cómodas, cocina equipada, sala y baño privado.</p>
+          <ul class="room-tags">
+            <li>👥 3 personas</li><li>🍳 Cocina</li><li>🛋️ Sala</li><li>🚿 Baño privado</li>
+          </ul>
+          <a href="#reservar" class="btn btn-dark room-btn">Consultar disponibilidad</a>
+        </div>
+      </div>
+
+      <div class="room-card room-featured">
+        <div class="room-img-wrap">
+          <img src="images/doble.jpg" alt="Departamento Doble" class="room-img"
+               onerror="this.parentElement.classList.add('no-img'); this.style.display='none'"/>
+          <div class="room-img-placeholder">🛏️🛏️</div>
+          <span class="room-badge badge-gold">Más popular</span>
+        </div>
+        <div class="room-body">
+          <p class="room-type">Departamento</p>
+          <h3 class="room-name">Departamento Doble</h3>
+          <p class="room-desc">Ideal para parejas o dos amigos. Mini cocina equipada, sala acogedora y baño privado.</p>
+          <ul class="room-tags">
+            <li>👥 2 personas</li><li>🍳 Cocina</li><li>🛋️ Sala</li><li>🚿 Baño privado</li>
+          </ul>
+          <a href="#reservar" class="btn btn-gold room-btn">Consultar disponibilidad</a>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <div class="room-img-wrap">
+          <img src="images/matrimonial.jpg" alt="Habitación Matrimonial" class="room-img"
+               onerror="this.parentElement.classList.add('no-img'); this.style.display='none'"/>
+          <div class="room-img-placeholder">💑</div>
+          <span class="room-badge">Matrimonial</span>
+        </div>
+        <div class="room-body">
+          <p class="room-type">Habitación</p>
+          <h3 class="room-name">Habitación Matrimonial</h3>
+          <p class="room-desc">Ambiente íntimo con cama matrimonial, decoración tropical y baño privado completo.</p>
+          <ul class="room-tags">
+            <li>👫 2 personas</li><li>🛏️ Cama doble</li><li>🚿 Baño privado</li><li>❄️ A/C</li>
+          </ul>
+          <a href="#reservar" class="btn btn-dark room-btn">Consultar disponibilidad</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section instalaciones-section" id="instalaciones">
+    <div class="section-header">
+      <span class="eyebrow">Nuestro espacio</span>
+      <h2 class="section-title">Instalaciones</h2>
+      <p class="section-desc">Piscina privada, áreas sociales y a solo 30 metros de la playa de Tonsupa.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item gallery-big">
+        <img src="images/piscina.jpg" alt="Piscina" onerror="this.style.display='none'; this.parentElement.classList.add('gallery-placeholder')"/>
+        <div class="gallery-label">Piscina privada</div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/playa.jpg" alt="Playa" onerror="this.style.display='none'; this.parentElement.classList.add('gallery-placeholder')"/>
+        <div class="gallery-label">A 30m de la playa</div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/sala.jpg" alt="Sala" onerror="this.style.display='none'; this.parentElement.classList.add('gallery-placeholder')"/>
+        <div class="gallery-label">Áreas sociales</div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/cocina.jpg" alt="Cocina" onerror="this.style.display='none'; this.parentElement.classList.add('gallery-placeholder')"/>
+        <div class="gallery-label">Cocina equipada</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section location-section" id="ubicacion">
+    <div class="location-inner">
+      <div class="location-info">
+        <span class="eyebrow eyebrow-light">¿Dónde estamos?</span>
+        <h2 class="section-title title-light">Tonsupa, Esmeraldas</h2>
+        <p class="section-desc desc-light">Ubicados en uno de los destinos de playa más populares de Ecuador.</p>
+        <ul class="location-list">
+          <li><span class="loc-icon">📍</span><div><strong>Tonsupa, Esmeraldas – Ecuador</strong><span>Cerca de Atacames, fácil acceso desde Quito y Guayaquil</span></div></li>
+          <li><span class="loc-icon">🌊</span><div><strong>30 metros del mar</strong><span>Sal y pisa arena en menos de un minuto</span></div></li>
+          <li><span class="loc-icon">🏊</span><div><strong>Piscina privada</strong><span>Áreas sociales para relajarte con tu familia</span></div></li>
+        </ul>
+        <a href="https://www.google.com/maps/search/Tonsupa+Esmeraldas+Ecuador" target="_blank" class="btn btn-gold">Ver en Google Maps</a>
+      </div>
+      <div class="location-map">
+        <div class="map-embed">
+          <span class="map-pin">📍</span>
+          <p>Hostería El Remanso</p>
+          <small>Tonsupa, Esmeraldas, Ecuador</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reserve-section" id="reservar">
+    <div class="reserve-inner">
+      <div class="reserve-header">
+        <span class="eyebrow">Reservas</span>
+        <h2 class="section-title">¿Listo para escapar?</h2>
+        <p class="section-desc">Llena el formulario y tu solicitud llegará directo al WhatsApp del hostal.</p>
+      </div>
+      <div class="reserve-form-wrap">
+        <div class="reserve-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Tu nombre</label>
+              <input type="text" id="nombre" placeholder="Nombre completo"/>
+            </div>
+            <div class="form-group">
+              <label for="habitacion">Tipo de habitación</label>
+              <select id="habitacion">
+                <option value="">Selecciona...</option>
+                <option>Departamento Triple</option>
+                <option>Departamento Doble</option>
+                <option>Habitación Matrimonial</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="llegada">Fecha de llegada</label>
+              <input type="date" id="llegada"/>
+            </div>
+            <div class="form-group">
+              <label for="salida">Fecha de salida</label>
+              <input type="date" id="salida"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="personas">N° de personas</label>
+              <input type="number" id="personas" min="1" max="10" placeholder="2"/>
+            </div>
+            <div class="form-group">
+              <label for="telefono">Tu WhatsApp</label>
+              <input type="tel" id="telefono" placeholder="+593 9..."/>
+            </div>
+          </div>
+          <div class="form-group form-full">
+            <label for="mensaje">Mensaje adicional <span class="optional">(opcional)</span></label>
+            <textarea id="mensaje" rows="3" placeholder="Alguna solicitud especial..."></textarea>
+          </div>
+          <button class="btn btn-whatsapp" id="btnReservar">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Enviar reserva por WhatsApp
+          </button>
+          <p class="form-note">📩 Tu mensaje irá directo al propietario de El Remanso</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section instagram-section">
+    <div class="instagram-inner">
+      <span class="eyebrow">Síguenos</span>
+      <h2 class="section-title">@elremanso_tonsupa</h2>
+      <a href="https://www.instagram.com/" target="_blank" class="btn btn-dark ig-btn">Ver en Instagram</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-text footer-logo">El <em>Remanso</em></span>
+        <p>Hostería Turística en Tonsupa, Ecuador. Tu refugio junto al Pacífico.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Habitaciones</h4>
+        <ul>
+          <li>Departamento Triple</li>
+          <li>Departamento Doble</li>
+          <li>Habitación Matrimonial</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/593963560568">📱 +593 96 356 0568</a></li>
+          <li>📍 Tonsupa, Esmeraldas</li>
+          <li><a href="https://www.instagram.com/" target="_blank">📸 Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 El Remanso – Hostería Turística Tonsupa</span>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/593963560568" target="_blank" class="wa-float" title="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="white" width="30" height="30"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
