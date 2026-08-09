@@ -1,1 +1,150 @@
 
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin – El Remanso</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f0f4f0; }
+    .topbar { background: #1a6b45; color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; }
+    .topbar h1 { font-size: 1.2rem; }
+    .topbar a { color: white; text-decoration: none; font-size: 0.9rem; }
+    .container { max-width: 960px; margin: 30px auto; padding: 0 20px; }
+    .seccion { background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .seccion h2 { color: #1a6b45; margin-bottom: 20px; font-size: 1.1rem; }
+    .hab-card { border: 2px solid #e0e0e0; border-radius: 12px; margin-bottom: 25px; overflow: hidden; }
+    .hab-header { background: #f8f8f8; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; }
+    .hab-header span { font-weight: bold; color: #1a6b45; font-size: 1rem; }
+    .carrete { padding: 15px; }
+    .carrete-label { font-size: 0.8rem; color: #888; margin-bottom: 10px; }
+    .fotos-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; min-height: 140px; align-items: center; }
+    .foto-thumb { position: relative; flex-shrink: 0; width: 160px; height: 120px; border-radius: 8px; overflow: hidden; border: 2px solid #e0e0e0; }
+    .foto-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .foto-thumb .x { position: absolute; top: 4px; right: 4px; background: rgba(220,38,38,0.9); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 0.85rem; }
+    .foto-thumb .lbl { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.55); color: white; font-size: 0.7rem; padding: 3px 6px; text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .add-btn { flex-shrink: 0; width: 130px; height: 120px; border: 2px dashed #1a6b45; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: #1a6b45; font-size: 0.82rem; gap: 6px; background: #f0faf5; }
+    .add-btn:hover { background: #e0f5eb; }
+    .hab-info { padding: 0 15px 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .campo { display: flex; flex-direction: column; gap: 3px; }
+    .campo.full { grid-column: 1/-1; }
+    .campo label { font-size: 0.75rem; color: #888; }
+    .campo input, .campo textarea { border: 1.5px solid #e0e0e0; border-radius: 6px; padding: 7px 10px; font-size: 0.88rem; font-family: inherit; }
+    .campo input:focus, .campo textarea:focus { outline: none; border-color: #1a6b45; }
+    .campo textarea { resize: none; height: 65px; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
+    .btn-verde { background: #1a6b45; color: white; }
+    .btn-gris { background: #e0e0e0; color: #333; }
+    .btn-rojo { background: #dc2626; color: white; font-size: 0.82rem; padding: 7px 14px; border-radius: 6px; border: none; cursor: pointer; }
+    .campo-g { margin-bottom: 15px; }
+    .campo-g label { display: block; font-size: 0.85rem; color: #555; margin-bottom: 5px; }
+    .campo-g input { width: 100%; border: 1.5px solid #e0e0e0; border-radius: 8px; padding: 10px 12px; font-size: 0.95rem; }
+    .campo-g input:focus { outline: none; border-color: #1a6b45; }
+    .instrucciones { background: #fffbeb; border: 1.5px solid #f59e0b; border-radius: 10px; padding: 15px 20px; font-size: 0.88rem; line-height: 1.8; }
+    pre { background: #1e293b; color: #e2e8f0; padding: 10px 14px; border-radius: 6px; margin: 6px 0; font-size: 0.85rem; }
+    #msg { color: #1a6b45; font-size: 0.9rem; display: none; margin-left: 10px; }
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <h1>🌴 El Remanso — Panel Admin</h1>
+  <a href="https://elremanso-tonsupa.netlify.app" target="_blank">Ver sitio →</a>
+</div>
+<div class="container">
+  <div class="seccion">
+    <h2>🛏️ Habitaciones — Fotos y Textos</h2>
+    <div id="lista"></div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px">
+      <button class="btn btn-verde" onclick="guardar()">💾 Guardar cambios</button>
+      <button class="btn btn-gris" onclick="agregar()">➕ Agregar habitación</button>
+      <span id="msg"></span>
+    </div>
+  </div>
+  <div class="seccion">
+    <h2>⚙️ Información General</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px">
+      <div class="campo-g"><label>WhatsApp</label><input type="tel" id="wa" placeholder="593963560568"/></div>
+      <div class="campo-g"><label>Instagram</label><input type="url" id="ig" placeholder="https://instagram.com/elremanso"/></div>
+      <div class="campo-g" style="grid-column:1/-1"><label>Google Maps (link)</label><input type="url" id="maps" placeholder="https://maps.google.com/?q=..."/></div>
+    </div>
+    <button class="btn btn-verde" onclick="guardarCfg()">💾 Guardar info</button>
+  </div>
+  <div class="instrucciones">
+    <strong>🚀 Para publicar en el sitio web:</strong><br/>
+    <pre>git add .</pre>
+    <pre>git commit -m "actualizar fotos"</pre>
+    <pre>git push</pre>
+    En 2 minutos aparece en el sitio ✅
+  </div>
+</div>
+<script>
+let habs = JSON.parse(localStorage.getItem('habs_v2')||'null') || [
+  {id:1,nombre:'Departamento Triple',tipo:'Departamento',desc:'Perfecto para grupos de 3. Literas cómodas, cocina equipada, sala y baño privado.',cap:'3 personas',fotos:[]},
+  {id:2,nombre:'Departamento Doble',tipo:'Departamento',desc:'Ideal para parejas o dos amigos. Mini cocina equipada, sala acogedora y baño privado.',cap:'2 personas',fotos:[]},
+  {id:3,nombre:'Habitación Matrimonial',tipo:'Habitación',desc:'Ambiente íntimo con cama matrimonial, decoración tropical y baño privado completo.',cap:'2 personas',fotos:[]},
+];
+let cfg = JSON.parse(localStorage.getItem('cfg')||'{}');
+function render(){
+  document.getElementById('lista').innerHTML = habs.map(h=>`
+    <div class="hab-card">
+      <div class="hab-header">
+        <span>🏠 ${h.nombre}</span>
+        <button class="btn-rojo" onclick="borrar(${h.id})">🗑️ Eliminar</button>
+      </div>
+      <div class="carrete">
+        <div class="carrete-label">📸 ${h.fotos.length} foto(s) — baño, sala, dormitorio, etc.</div>
+        <div class="fotos-scroll">
+          ${h.fotos.map((f,i)=>`
+            <div class="foto-thumb">
+              <img src="${f.data}"/>
+              <button class="x" onclick="quitarFoto(${h.id},${i})">✕</button>
+              <div class="lbl">${f.nombre}</div>
+            </div>
+          `).join('')}
+          <div class="add-btn" onclick="document.getElementById('fi${h.id}').click()">
+            <div style="font-size:1.8rem">📤</div>
+            <div>Agregar fotos</div>
+            <div style="font-size:0.72rem">Varias a la vez</div>
+          </div>
+          <input type="file" id="fi${h.id}" accept="image/*" multiple onchange="subirFotos(${h.id},this)" style="display:none"/>
+        </div>
+      </div>
+      <div class="hab-info">
+        <div class="campo"><label>Nombre</label><input value="${h.nombre}" oninput="upd(${h.id},'nombre',this.value)"/></div>
+        <div class="campo"><label>Tipo</label><input value="${h.tipo}" oninput="upd(${h.id},'tipo',this.value)"/></div>
+        <div class="campo full"><label>Descripción</label><textarea oninput="upd(${h.id},'desc',this.value)">${h.desc}</textarea></div>
+        <div class="campo"><label>Capacidad</label><input value="${h.cap}" oninput="upd(${h.id},'cap',this.value)"/></div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('wa').value=cfg.whatsapp||'593963560568';
+  document.getElementById('ig').value=cfg.instagram||'';
+  document.getElementById('maps').value=cfg.maps||'';
+}
+function upd(id,campo,val){const h=habs.find(h=>h.id===id);if(h)h[campo]=val;}
+function subirFotos(id,input){
+  const files=Array.from(input.files);if(!files.length)return;
+  const h=habs.find(h=>h.id===id);if(!h)return;
+  let n=0;
+  files.forEach(file=>{
+    const r=new FileReader();
+    r.onload=e=>{h.fotos.push({data:e.target.result,nombre:file.name});n++;if(n===files.length){render();msg(`📸 ${n} foto(s) agregada(s)`);}}; 
+    r.readAsDataURL(file);
+  });
+}
+function quitarFoto(id,i){if(!confirm('¿Quitar?'))return;habs.find(h=>h.id===id).fotos.splice(i,1);render();}
+function borrar(id){if(!confirm('¿Eliminar habitación?'))return;habs=habs.filter(h=>h.id!==id);render();}
+function agregar(){habs.push({id:Date.now(),nombre:'Nueva habitación',tipo:'Habitación',desc:'Descripción.',cap:'2 personas',fotos:[]});render();}
+function guardar(){localStorage.setItem('habs_v2',JSON.stringify(habs));msg('✅ ¡Guardado!');}
+function guardarCfg(){cfg={whatsapp:document.getElementById('wa').value,instagram:document.getElementById('ig').value,maps:document.getElementById('maps').value};localStorage.setItem('cfg',JSON.stringify(cfg));msg('✅ ¡Info guardada!');}
+function msg(t){const el=document.getElementById('msg');el.textContent=t;el.style.display='inline-block';setTimeout(()=>el.style.display='none',3500);}
+render();
+</script>
+</body>
+</html>
