@@ -56,14 +56,13 @@
     .campo input:focus{outline:none;border-color:#1a6b45;}
     .inst-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;}
     .inst-item .lbl{font-size:.82rem;font-weight:600;color:#555;margin-bottom:6px;}
-    .subiendo{display:none;color:#1a6b45;font-size:.82rem;margin-top:6px;}
     .toast{position:fixed;bottom:20px;right:20px;background:#1a6b45;color:white;padding:10px 18px;border-radius:10px;font-size:.88rem;display:none;z-index:999;max-width:280px;}
-    .instrucciones{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:14px 18px;font-size:.85rem;line-height:1.8;}
-    pre{background:#1e293b;color:#e2e8f0;padding:8px 12px;border-radius:6px;margin:5px 0;font-size:.82rem;}
     .cargando-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:500;align-items:center;justify-content:center;flex-direction:column;color:white;gap:12px;font-size:1.1rem;}
     .cargando-overlay.show{display:flex;}
     .spinner{width:40px;height:40px;border:4px solid rgba(255,255,255,.3);border-top:4px solid white;border-radius:50%;animation:spin 1s linear infinite;}
     @keyframes spin{to{transform:rotate(360deg);}}
+    .publicar-btn{width:100%;padding:16px;background:#1a6b45;color:white;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:20px;}
+    .publicar-btn:hover{background:#145438;}
   </style>
 </head>
 <body>
@@ -97,7 +96,7 @@
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:15px;flex-wrap:wrap;gap:10px;">
       <div>
         <div class="sec-title">Cabanas y Habitaciones</div>
-        <div class="sec-sub">Sube varias fotos por cabana. El carrete pasa automaticamente.</div>
+        <div class="sec-sub">Sube varias fotos por cabana. Mantén Ctrl para elegir varias a la vez.</div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="btn btn-v" onclick="nuevaCabana('Triple')">+ Triple</button>
@@ -163,23 +162,19 @@
     <button class="btn btn-v" onclick="guardarCfg()">Guardar info</button>
   </div>
 
-  <div class="instrucciones">
-    <strong>Para publicar en el sitio:</strong><br/>
-    <pre>git add .</pre>
-    <pre>git commit -m "actualizar"</pre>
-    <pre>git push</pre>
-    En 2 minutos aparece en el sitio.
-  </div>
+  <!-- PUBLICAR -->
+  <button class="publicar-btn" onclick="publicar()">
+    Publicar cambios en el sitio web
+  </button>
 
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CLOUDINARY CONFIG ────────────────────────────────
 const CLD_CLOUD  = 'yejx4eyi';
 const CLD_PRESET = 'el-remanso';
+const NETLIFY_HOOK = '';
 
-// ── ESTADO ────────────────────────────────────────────
 let cabanas = JSON.parse(localStorage.getItem('cabs_v4') || 'null') || [
   {id:1,tipo:'Triple',      nombre:'Triple 1',      desc:'Perfecto para grupos de 3.',       cap:'3 personas', fotos:[]},
   {id:2,tipo:'Triple',      nombre:'Triple 2',      desc:'Perfecto para grupos de 3.',       cap:'3 personas', fotos:[]},
@@ -192,23 +187,21 @@ let cabanas = JSON.parse(localStorage.getItem('cabs_v4') || 'null') || [
   {id:9,tipo:'Matrimonial', nombre:'Matrimonial 4', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
   {id:10,tipo:'Matrimonial',nombre:'Matrimonial 5', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
 ];
-let cfg  = JSON.parse(localStorage.getItem('cfg')   || '{}');
+let cfg  = JSON.parse(localStorage.getItem('cfg')    || '{}');
 let inst = JSON.parse(localStorage.getItem('inst_v2')|| '{}');
 const carIdx = {};
 const carTimers = {};
 
-// ── CLOUDINARY UPLOAD ────────────────────────────────
 async function subirCloudinary(file) {
   const fd = new FormData();
   fd.append('file', file);
   fd.append('upload_preset', CLD_PRESET);
-  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLD_CLOUD}/image/upload`, {method:'POST', body:fd});
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLD_CLOUD}/image/upload`, {method:'POST',body:fd});
   const data = await res.json();
   if (data.secure_url) return data.secure_url;
-  throw new Error('Error subiendo foto');
+  throw new Error('Error');
 }
 
-// ── SUBIR FOTO UNICA ──────────────────────────────────
 async function subirUna(input, clave, imgId, phId) {
   const file = input.files[0]; if (!file) return;
   mostrarCargando('Subiendo foto...');
@@ -219,22 +212,17 @@ async function subirUna(input, clave, imgId, phId) {
     const img = document.getElementById(imgId);
     if (img) { img.src = url; img.style.display = 'block'; }
     if (phId) document.getElementById(phId).style.display = 'none';
-    // Si es portada, guardar aparte
-    if (clave === 'portada') localStorage.setItem('portada_cld', url);
     toast('Foto subida correctamente');
-  } catch(e) {
-    toast('Error al subir. Intenta de nuevo.');
-  }
+  } catch(e) { toast('Error al subir. Intenta de nuevo.'); }
   ocultarCargando();
 }
 
-// ── SUBIR FOTOS CABANA ────────────────────────────────
 async function subirFotosCabana(id, input) {
   const files = Array.from(input.files);
   if (!files.length) return;
   const c = cabanas.find(c => c.id === id);
   if (!c) return;
-  mostrarCargando(`Subiendo ${files.length} foto(s) a ${c.nombre}...`);
+  mostrarCargando(`Subiendo ${files.length} foto(s)...`);
   try {
     for (const file of files) {
       const url = await subirCloudinary(file);
@@ -243,13 +231,10 @@ async function subirFotosCabana(id, input) {
     guardarCabanas();
     render();
     toast(files.length + ' foto(s) subidas a ' + c.nombre);
-  } catch(e) {
-    toast('Error al subir. Intenta de nuevo.');
-  }
+  } catch(e) { toast('Error al subir. Intenta de nuevo.'); }
   ocultarCargando();
 }
 
-// ── CARRETE ───────────────────────────────────────────
 function iniciarCarrete(id, total) {
   if (carTimers[id]) clearInterval(carTimers[id]);
   if (total > 1) carTimers[id] = setInterval(() => moverCar(id, 1), 3500);
@@ -275,7 +260,6 @@ function quitarFotoActual(id) {
   render();
 }
 
-// ── RENDER ────────────────────────────────────────────
 function render() {
   const grid = document.getElementById('cab-grid');
   grid.innerHTML = '';
@@ -306,12 +290,12 @@ function render() {
             </div>
           ` : ''}
           <button class="car-del" onclick="quitarFotoActual(${c.id})">Quitar foto</button>
-          <button class="car-add" onclick="document.getElementById('fi-${c.id}').click()">+ Agregar fotos</button>
+          <button class="car-add" onclick="document.getElementById('fi-${c.id}').click()">+ Agregar</button>
         ` : `
           <div class="car-sin" onclick="document.getElementById('fi-${c.id}').click()">
             <div class="ico">🏠</div>
             <div style="font-size:.8rem">Clic para subir fotos</div>
-            <div style="font-size:.72rem;color:#ccc">Puedes elegir varias a la vez</div>
+            <div style="font-size:.72rem;color:#ccc">Mantén Ctrl para elegir varias</div>
           </div>
         `}
         <input type="file" id="fi-${c.id}" accept="image/*" multiple style="display:none"
@@ -328,23 +312,23 @@ function render() {
     if (tieneFotos) iniciarCarrete(c.id, c.fotos.length);
   });
 
-  // Cargar fotos instalaciones
-  ['portada','piscina','playa','sala','cocina'].forEach(k => {
-    const url = inst[k] || localStorage.getItem('portada_cld');
-    if (k === 'portada' && localStorage.getItem('portada_cld')) {
-      const img = document.getElementById('img-portada');
-      if (img) { img.src = localStorage.getItem('portada_cld'); img.style.display='block'; }
-      const ph = document.getElementById('ph-portada');
-      if (ph) ph.style.display = 'none';
-    }
-    if (inst[k]) {
-      const img = document.getElementById('img-' + k);
-      if (img) { img.src = inst[k]; img.style.display = 'block'; }
+  // Cargar fotos guardadas
+  Object.keys(inst).forEach(k => {
+    const img = document.getElementById('img-' + k);
+    if (img && inst[k]) {
+      img.src = inst[k];
+      img.style.display = 'block';
+      const ph = img.previousElementSibling;
+      if (ph && ph.classList.contains('ph')) ph.style.display = 'none';
     }
   });
+  if (inst.portada) {
+    document.getElementById('img-portada').src = inst.portada;
+    document.getElementById('img-portada').style.display = 'block';
+    document.getElementById('ph-portada').style.display = 'none';
+  }
 }
 
-// ── CRUD ──────────────────────────────────────────────
 function upd(id, campo, val) {
   const c = cabanas.find(c => c.id === id);
   if (c) { c[campo] = val; guardarCabanas(); }
@@ -353,7 +337,7 @@ function upd(id, campo, val) {
 function nuevaCabana(tipo) {
   const n = cabanas.filter(c => c.tipo === tipo).length + 1;
   const id = Date.now();
-  cabanas.push({id, tipo, nombre: tipo+' '+n, desc:'Descripcion aqui.', cap:'2 personas', fotos:[]});
+  cabanas.push({id, tipo, nombre:tipo+' '+n, desc:'Descripcion aqui.', cap:'2 personas', fotos:[]});
   guardarCabanas(); render();
   toast('Cabana ' + tipo + ' ' + n + ' agregada');
 }
@@ -368,13 +352,16 @@ function eliminarCabana(id) {
 
 function guardarCabanas() {
   try { localStorage.setItem('cabs_v4', JSON.stringify(cabanas)); }
-  catch(e) { toast('Muchas fotos en memoria. Las fotos ya estan en Cloudinary, seguras.'); }
+  catch(e) { toast('Las fotos ya estan guardadas en Cloudinary.'); }
 }
 
-// ── CONFIG ────────────────────────────────────────────
-document.getElementById('wa').value    = cfg.whatsapp  || '593963560568';
-document.getElementById('ig').value    = cfg.instagram || '';
-document.getElementById('maps').value  = cfg.maps      || '';
+function publicar() {
+  toast('Los cambios ya estan en el sitio automaticamente.');
+}
+
+document.getElementById('wa').value   = cfg.whatsapp  || '593963560568';
+document.getElementById('ig').value   = cfg.instagram || '';
+document.getElementById('maps').value = cfg.maps      || '';
 
 function guardarCfg() {
   cfg = {
@@ -386,7 +373,6 @@ function guardarCfg() {
   toast('Informacion guardada');
 }
 
-// ── UI HELPERS ────────────────────────────────────────
 function mostrarCargando(txt) {
   document.getElementById('cargando-txt').textContent = txt;
   document.getElementById('cargando').classList.add('show');
@@ -400,7 +386,6 @@ function toast(msg) {
   setTimeout(() => el.style.display = 'none', 3500);
 }
 
-// ── INIT ──────────────────────────────────────────────
 render();
 </script>
 </body>
