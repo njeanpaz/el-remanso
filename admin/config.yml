@@ -1,0 +1,39 @@
+backend:
+  name: github
+  repo: njeanpaz/el-remanso
+  branch: main
+
+media_folder: images
+
+collections:
+  - name: "configuracion"
+    label: "⚙️ Configuración General"
+    files:
+      - name: "general"
+        label: "Datos del Hostal"
+        file: "admin/data/general.json"
+        fields:
+          - {label: "Nombre del Hostal", name: "nombre", widget: "string"}
+          - {label: "Subtítulo Hero", name: "subtitulo", widget: "string"}
+          - {label: "Número WhatsApp", name: "whatsapp", widget: "string"}
+          - {label: "Instagram", name: "instagram", widget: "string"}
+          - {label: "Ubicación", name: "ubicacion", widget: "string"}
+
+  - name: "habitaciones"
+    label: "🛏️ Habitaciones"
+    folder: "admin/data/habitaciones"
+    create: true
+    fields:
+      - {label: "Nombre", name: "nombre", widget: "string"}
+      - {label: "Tipo", name: "tipo", widget: "string"}
+      - {label: "Descripción", name: "descripcion", widget: "text"}
+      - {label: "Foto", name: "foto", widget: "image"}
+      - {label: "Personas", name: "personas", widget: "string"}
+
+  - name: "galeria"
+    label: "📸 Galería de Fotos"
+    folder: "admin/data/galeria"
+    create: true
+    fields:
+      - {label: "Título", name: "titulo", widget: "string"}
+      - {label: "Foto", name: "foto", widget: "image"}
