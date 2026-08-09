@@ -1,279 +1,415 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>El Remanso – Hostería Turística Tonsupa</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/style.css"/>
-  <link rel="stylesheet" href="css/components.css"/>
+  <title>Panel Admin – El Remanso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #f0f4f8; min-height: 100vh; }
+
+    /* LOGIN */
+    .login-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #0F3554 0%, #1E8449 100%);
+    }
+    .login-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.2);
+      text-align: center;
+    }
+    .login-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0F3554;
+      margin-bottom: .3rem;
+    }
+    .login-logo em { color: #B7950B; font-style: italic; }
+    .login-sub { font-size: .85rem; color: #6B7280; margin-bottom: 2rem; }
+    .login-box label { display: block; text-align: left; font-size: .78rem; font-weight: 600; color: #0F3554; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .4rem; }
+    .login-box input { width: 100%; padding: .8rem 1rem; border: 1.5px solid #e5e7eb; border-radius: 8px; font-size: .95rem; margin-bottom: 1.2rem; outline: none; transition: border-color .2s; }
+    .login-box input:focus { border-color: #0F3554; }
+    .login-btn { width: 100%; padding: .9rem; background: #0F3554; color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background .2s; }
+    .login-btn:hover { background: #1A5276; }
+    .login-error { color: #e53e3e; font-size: .85rem; margin-top: .8rem; display: none; }
+
+    /* PANEL */
+    .panel { display: none; }
+    .topbar {
+      background: #0F3554;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar-logo { font-size: 1.2rem; font-weight: 700; }
+    .topbar-logo em { color: #F0D080; font-style: italic; }
+    .topbar-right { display: flex; align-items: center; gap: 1rem; font-size: .85rem; }
+    .logout-btn { background: rgba(255,255,255,.15); border: none; color: #fff; padding: .4rem 1rem; border-radius: 6px; cursor: pointer; font-size: .85rem; }
+    .logout-btn:hover { background: rgba(255,255,255,.25); }
+
+    .panel-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 60px); }
+
+    /* SIDEBAR */
+    .sidebar { background: #fff; border-right: 1px solid #e5e7eb; padding: 1.5rem 0; }
+    .sidebar-item {
+      display: flex; align-items: center; gap: .8rem;
+      padding: .8rem 1.5rem;
+      cursor: pointer;
+      font-size: .9rem; font-weight: 500; color: #374151;
+      transition: all .15s;
+      border-left: 3px solid transparent;
+    }
+    .sidebar-item:hover { background: #f0f4f8; color: #0F3554; }
+    .sidebar-item.active { background: #EFF6FF; color: #0F3554; border-left-color: #0F3554; font-weight: 600; }
+    .sidebar-item .icon { font-size: 1.2rem; }
+
+    /* CONTENT */
+    .content { padding: 2rem; overflow-y: auto; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .page-title { font-size: 1.5rem; font-weight: 700; color: #0F3554; margin-bottom: .5rem; }
+    .page-desc { color: #6B7280; font-size: .9rem; margin-bottom: 2rem; }
+
+    /* CARDS */
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .info-card { background: #fff; border-radius: 10px; padding: 1.2rem; border: 1px solid #e5e7eb; }
+    .info-card .num { font-size: 2rem; font-weight: 700; color: #0F3554; }
+    .info-card .label { font-size: .82rem; color: #6B7280; margin-top: .2rem; }
+
+    /* FORM */
+    .form-section { background: #fff; border-radius: 12px; padding: 1.8rem; border: 1px solid #e5e7eb; margin-bottom: 1.5rem; }
+    .form-section h3 { font-size: 1rem; font-weight: 600; color: #0F3554; margin-bottom: 1.2rem; padding-bottom: .8rem; border-bottom: 1px solid #f3f4f6; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: .78rem; font-weight: 600; color: #374151; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .4rem; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: .75rem 1rem; border: 1.5px solid #e5e7eb; border-radius: 8px; font-size: .93rem; font-family: 'Inter', sans-serif; outline: none; transition: border-color .2s; }
+    .form-group input:focus, .form-group textarea:focus { border-color: #0F3554; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .save-btn { background: #1E8449; color: #fff; border: none; padding: .8rem 2rem; border-radius: 8px; font-size: .95rem; font-weight: 600; cursor: pointer; transition: background .2s; }
+    .save-btn:hover { background: #27AE60; }
+    .save-msg { display: none; margin-left: 1rem; color: #1E8449; font-size: .9rem; font-weight: 500; }
+
+    /* HABITACIONES */
+    .room-list { display: flex; flex-direction: column; gap: 1rem; }
+    .room-item { background: #fff; border-radius: 10px; padding: 1.2rem 1.5rem; border: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; }
+    .room-item-info h4 { font-size: .95rem; font-weight: 600; color: #0F3554; }
+    .room-item-info p { font-size: .82rem; color: #6B7280; margin-top: .2rem; }
+    .room-badge-sm { font-size: .72rem; font-weight: 600; padding: .25rem .7rem; border-radius: 20px; }
+    .badge-triple { background: #dbeafe; color: #1e40af; }
+    .badge-doble { background: #dcfce7; color: #166534; }
+    .badge-mat { background: #fef3c7; color: #92400e; }
+    .room-actions { display: flex; gap: .5rem; }
+    .btn-sm { padding: .4rem .9rem; border-radius: 6px; font-size: .8rem; font-weight: 600; cursor: pointer; border: none; }
+    .btn-edit { background: #e0f2fe; color: #0369a1; }
+    .btn-edit:hover { background: #bae6fd; }
+
+    /* INSTRUCCIONES */
+    .instructions { background: #fff; border-radius: 12px; padding: 1.8rem; border: 1px solid #e5e7eb; }
+    .step { display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start; }
+    .step-num { background: #0F3554; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; flex-shrink: 0; }
+    .step-content h4 { font-size: .95rem; font-weight: 600; color: #0F3554; margin-bottom: .3rem; }
+    .step-content p { font-size: .85rem; color: #6B7280; line-height: 1.6; }
+    .code-block { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: .6rem 1rem; font-family: monospace; font-size: .85rem; color: #374151; margin-top: .5rem; }
+
+    @media (max-width: 768px) {
+      .panel-body { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-  <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="#inicio" class="nav-logo">
-        <span class="logo-text">El <em>Remanso</em></span>
-      </a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#habitaciones">Habitaciones</a></li>
-        <li><a href="#instalaciones">Instalaciones</a></li>
-        <li><a href="#ubicacion">Ubicación</a></li>
-        <li><a href="#reservar" class="nav-btn">Reservar</a></li>
-      </ul>
-      <button class="hamburger" id="hamburger" aria-label="Menú">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">El <em>Remanso</em></div>
+    <p class="login-sub">Panel de Administración</p>
+    <label for="user">Usuario</label>
+    <input type="text" id="user" placeholder="admin"/>
+    <label for="pass">Contraseña</label>
+    <input type="password" id="pass" placeholder="••••••••" onkeydown="if(event.key==='Enter') login()"/>
+    <button class="login-btn" onclick="login()">Ingresar</button>
+    <p class="login-error" id="loginError">❌ Usuario o contraseña incorrectos</p>
+  </div>
+</div>
 
-  <section class="hero" id="inicio">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <span class="hero-badge">🌴 Tonsupa · Ecuador</span>
-      <h1 class="hero-title">
-        Tu paraíso<br/>
-        <em>junto al Pacífico</em>
-      </h1>
-      <p class="hero-sub">
-        Departamentos completos con cocina, sala y baño privado.<br/>
-        A solo 30 metros del mar.
-      </p>
-      <div class="hero-actions">
-        <a href="#reservar" class="btn btn-gold">Reservar ahora</a>
-        <a href="#habitaciones" class="btn btn-ghost">Ver habitaciones</a>
-      </div>
+<!-- PANEL -->
+<div class="panel" id="panel">
+  <div class="topbar">
+    <div class="topbar-logo">El <em>Remanso</em> — Admin</div>
+    <div class="topbar-right">
+      <span>👤 Administrador</span>
+      <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
     </div>
-    <div class="hero-scroll"><span></span><p>Desliza</p></div>
-  </section>
-
-  <div class="features-bar">
-    <div class="feature"><span class="feat-icon">🏖️</span><span>30 m de la playa</span></div>
-    <div class="feat-divider"></div>
-    <div class="feature"><span class="feat-icon">🏊</span><span>Piscina privada</span></div>
-    <div class="feat-divider"></div>
-    <div class="feature"><span class="feat-icon">🍳</span><span>Cocina equipada</span></div>
-    <div class="feat-divider"></div>
-    <div class="feature"><span class="feat-icon">📶</span><span>Wi-Fi incluido</span></div>
-    <div class="feat-divider"></div>
-    <div class="feature"><span class="feat-icon">🅿️</span><span>Parqueadero</span></div>
   </div>
 
-  <section class="section rooms-section" id="habitaciones">
-    <div class="section-header">
-      <span class="eyebrow">Nuestras opciones</span>
-      <h2 class="section-title">Habitaciones & Departamentos</h2>
-      <p class="section-desc">Cada espacio es una mini-casita independiente con cocina, sala, habitación y baño privado.</p>
-    </div>
-    <div class="rooms-grid">
-
-      <div class="room-card">
-        <div class="room-img-wrap">
-          <img src="images/triple.jpg" alt="Departamento Triple" class="room-img"
-               onerror="this.parentElement.classList.add('no-img'); this.style.display='none'"/>
-          <div class="room-img-placeholder">🛏️</div>
-          <span class="room-badge">Triple</span>
-        </div>
-        <div class="room-body">
-          <p class="room-type">Departamento</p>
-          <h3 class="room-name">Departamento Triple</h3>
-          <p class="room-desc">Perfecto para grupos de 3. Literas cómodas, cocina equipada, sala y baño privado.</p>
-          <ul class="room-tags">
-            <li>👥 3 personas</li><li>🍳 Cocina</li><li>🛋️ Sala</li><li>🚿 Baño privado</li>
-          </ul>
-          <a href="#reservar" class="btn btn-dark room-btn">Consultar disponibilidad</a>
-        </div>
+  <div class="panel-body">
+    <div class="sidebar">
+      <div class="sidebar-item active" onclick="showPage('dashboard')">
+        <span class="icon">📊</span> Dashboard
       </div>
-
-      <div class="room-card room-featured">
-        <div class="room-img-wrap">
-          <img src="images/doble.jpg" alt="Departamento Doble" class="room-img"
-               onerror="this.parentElement.classList.add('no-img'); this.style.display='none'"/>
-          <div class="room-img-placeholder">🛏️🛏️</div>
-          <span class="room-badge badge-gold">Más popular</span>
-        </div>
-        <div class="room-body">
-          <p class="room-type">Departamento</p>
-          <h3 class="room-name">Departamento Doble</h3>
-          <p class="room-desc">Ideal para parejas o dos amigos. Mini cocina equipada, sala acogedora y baño privado.</p>
-          <ul class="room-tags">
-            <li>👥 2 personas</li><li>🍳 Cocina</li><li>🛋️ Sala</li><li>🚿 Baño privado</li>
-          </ul>
-          <a href="#reservar" class="btn btn-gold room-btn">Consultar disponibilidad</a>
-        </div>
+      <div class="sidebar-item" onclick="showPage('general')">
+        <span class="icon">⚙️</span> Datos generales
       </div>
-
-      <div class="room-card">
-        <div class="room-img-wrap">
-          <img src="images/matrimonial.jpg" alt="Habitación Matrimonial" class="room-img"
-               onerror="this.parentElement.classList.add('no-img'); this.style.display='none'"/>
-          <div class="room-img-placeholder">💑</div>
-          <span class="room-badge">Matrimonial</span>
-        </div>
-        <div class="room-body">
-          <p class="room-type">Habitación</p>
-          <h3 class="room-name">Habitación Matrimonial</h3>
-          <p class="room-desc">Ambiente íntimo con cama matrimonial, decoración tropical y baño privado completo.</p>
-          <ul class="room-tags">
-            <li>👫 2 personas</li><li>🛏️ Cama doble</li><li>🚿 Baño privado</li><li>❄️ A/C</li>
-          </ul>
-          <a href="#reservar" class="btn btn-dark room-btn">Consultar disponibilidad</a>
-        </div>
+      <div class="sidebar-item" onclick="showPage('habitaciones')">
+        <span class="icon">🛏️</span> Habitaciones
       </div>
-
-    </div>
-  </section>
-
-  <section class="section instalaciones-section" id="instalaciones">
-    <div class="section-header">
-      <span class="eyebrow">Nuestro espacio</span>
-      <h2 class="section-title">Instalaciones</h2>
-      <p class="section-desc">Piscina privada, áreas sociales y a solo 30 metros de la playa de Tonsupa.</p>
-    </div>
-    <div class="gallery-grid">
-      <div class="gallery-item gallery-big">
-        <img src="images/piscina.jpg" alt="Piscina" onerror="this.style.display='none'; this.parentElement.classList.add('gallery-placeholder')"/>
-        <div class="gallery-label">Piscina privada</div>
+      <div class="sidebar-item" onclick="showPage('fotos')">
+        <span class="icon">📸</span> Cómo subir fotos
       </div>
-      <div class="gallery-item">
-        <img src="images/playa.jpg" alt="Playa" onerror="this.style.display='none'; this.parentElement.classList.add('gallery-placeholder')"/>
-        <div class="gallery-label">A 30m de la playa</div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/sala.jpg" alt="Sala" onerror="this.style.display='none'; this.parentElement.classList.add('gallery-placeholder')"/>
-        <div class="gallery-label">Áreas sociales</div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/cocina.jpg" alt="Cocina" onerror="this.style.display='none'; this.parentElement.classList.add('gallery-placeholder')"/>
-        <div class="gallery-label">Cocina equipada</div>
+      <div class="sidebar-item" onclick="showPage('sitio')">
+        <span class="icon">🌐</span> Ver sitio
       </div>
     </div>
-  </section>
 
-  <section class="section location-section" id="ubicacion">
-    <div class="location-inner">
-      <div class="location-info">
-        <span class="eyebrow eyebrow-light">¿Dónde estamos?</span>
-        <h2 class="section-title title-light">Tonsupa, Esmeraldas</h2>
-        <p class="section-desc desc-light">Ubicados en uno de los destinos de playa más populares de Ecuador.</p>
-        <ul class="location-list">
-          <li><span class="loc-icon">📍</span><div><strong>Tonsupa, Esmeraldas – Ecuador</strong><span>Cerca de Atacames, fácil acceso desde Quito y Guayaquil</span></div></li>
-          <li><span class="loc-icon">🌊</span><div><strong>30 metros del mar</strong><span>Sal y pisa arena en menos de un minuto</span></div></li>
-          <li><span class="loc-icon">🏊</span><div><strong>Piscina privada</strong><span>Áreas sociales para relajarte con tu familia</span></div></li>
-        </ul>
-        <a href="https://www.google.com/maps/search/Tonsupa+Esmeraldas+Ecuador" target="_blank" class="btn btn-gold">Ver en Google Maps</a>
-      </div>
-      <div class="location-map">
-        <div class="map-embed">
-          <span class="map-pin">📍</span>
-          <p>Hostería El Remanso</p>
-          <small>Tonsupa, Esmeraldas, Ecuador</small>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <h2 class="page-title">¡Bienvenido al Panel! 🌴</h2>
+        <p class="page-desc">Desde aquí puedes administrar el sitio web de El Remanso.</p>
+        <div class="info-grid">
+          <div class="info-card"><div class="num">7</div><div class="label">Habitaciones disponibles</div></div>
+          <div class="info-card"><div class="num">1</div><div class="label">Departamento Triple</div></div>
+          <div class="info-card"><div class="num">3</div><div class="label">Departamentos Dobles</div></div>
+          <div class="info-card"><div class="num">3</div><div class="label">Habitaciones Matrimoniales</div></div>
+        </div>
+        <div class="form-section">
+          <h3>🔗 Links importantes</h3>
+          <p style="font-size:.9rem;color:#374151;margin-bottom:.8rem;">📱 <strong>Sitio web:</strong> <a href="https://elremanso-tonsupa.netlify.app" target="_blank" style="color:#0F3554;">elremanso-tonsupa.netlify.app</a></p>
+          <p style="font-size:.9rem;color:#374151;margin-bottom:.8rem;">💬 <strong>WhatsApp:</strong> +593 96 356 0568</p>
+          <p style="font-size:.9rem;color:#374151;">📍 <strong>Ubicación:</strong> Tonsupa, Esmeraldas, Ecuador</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="section reserve-section" id="reservar">
-    <div class="reserve-inner">
-      <div class="reserve-header">
-        <span class="eyebrow">Reservas</span>
-        <h2 class="section-title">¿Listo para escapar?</h2>
-        <p class="section-desc">Llena el formulario y tu solicitud llegará directo al WhatsApp del hostal.</p>
-      </div>
-      <div class="reserve-form-wrap">
-        <div class="reserve-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="nombre">Tu nombre</label>
-              <input type="text" id="nombre" placeholder="Nombre completo"/>
-            </div>
-            <div class="form-group">
-              <label for="habitacion">Tipo de habitación</label>
-              <select id="habitacion">
-                <option value="">Selecciona...</option>
-                <option>Departamento Triple</option>
-                <option>Departamento Doble</option>
-                <option>Habitación Matrimonial</option>
-              </select>
-            </div>
+      <!-- DATOS GENERALES -->
+      <div class="page" id="page-general">
+        <h2 class="page-title">⚙️ Datos Generales</h2>
+        <p class="page-desc">Para cambiar estos datos, edita el archivo <strong>index.html</strong> en VS Code.</p>
+        <div class="form-section">
+          <h3>Información del hostal</h3>
+          <div class="form-group">
+            <label>Nombre del hostal</label>
+            <input type="text" value="El Remanso" id="nombreHostal"/>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="llegada">Fecha de llegada</label>
-              <input type="date" id="llegada"/>
+              <label>Número WhatsApp</label>
+              <input type="text" value="+593 96 356 0568" id="waHostal"/>
             </div>
             <div class="form-group">
-              <label for="salida">Fecha de salida</label>
-              <input type="date" id="salida"/>
+              <label>Instagram</label>
+              <input type="text" value="@elremanso_tonsupa" id="igHostal"/>
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="personas">N° de personas</label>
-              <input type="number" id="personas" min="1" max="10" placeholder="2"/>
-            </div>
-            <div class="form-group">
-              <label for="telefono">Tu WhatsApp</label>
-              <input type="tel" id="telefono" placeholder="+593 9..."/>
+          <div class="form-group">
+            <label>Texto principal (hero)</label>
+            <input type="text" value="Tu paraíso junto al Pacífico" id="heroText"/>
+          </div>
+          <div class="form-group">
+            <label>Subtítulo</label>
+            <input type="text" value="Departamentos completos con cocina, sala y baño privado. A solo 30 metros del mar." id="heroSub"/>
+          </div>
+          <button class="save-btn" onclick="mostrarInstrucciones()">Ver instrucciones para guardar</button>
+          <span class="save-msg" id="saveMsg">✅ Copia estos valores en tu index.html</span>
+        </div>
+        <div class="form-section" id="instruccionesDiv" style="display:none;">
+          <h3>📋 Cómo aplicar los cambios</h3>
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Abre index.html en VS Code</h4>
+              <p>En el panel izquierdo haz clic en index.html</p>
             </div>
           </div>
-          <div class="form-group form-full">
-            <label for="mensaje">Mensaje adicional <span class="optional">(opcional)</span></label>
-            <textarea id="mensaje" rows="3" placeholder="Alguna solicitud especial..."></textarea>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Busca el texto a cambiar</h4>
+              <p>Usa <strong>Ctrl + F</strong> para buscar el texto original y reemplázalo</p>
+            </div>
           </div>
-          <button class="btn btn-whatsapp" id="btnReservar">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Enviar reserva por WhatsApp
-          </button>
-          <p class="form-note">📩 Tu mensaje irá directo al propietario de El Remanso</p>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Guarda y sube</h4>
+              <div class="code-block">Ctrl + S → git add . → git commit -m "cambios" → git push</div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="section instagram-section">
-    <div class="instagram-inner">
-      <span class="eyebrow">Síguenos</span>
-      <h2 class="section-title">@elremanso_tonsupa</h2>
-      <a href="https://www.instagram.com/" target="_blank" class="btn btn-dark ig-btn">Ver en Instagram</a>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <span class="logo-text footer-logo">El <em>Remanso</em></span>
-        <p>Hostería Turística en Tonsupa, Ecuador. Tu refugio junto al Pacífico.</p>
+      <!-- HABITACIONES -->
+      <div class="page" id="page-habitaciones">
+        <h2 class="page-title">🛏️ Habitaciones</h2>
+        <p class="page-desc">Listado de todas las habitaciones del hostal.</p>
+        <div class="room-list">
+          <div class="room-item">
+            <div class="room-item-info">
+              <h4>Departamento Triple — Depto 9</h4>
+              <p>Hasta 8 personas · 3 habitaciones · 2 baños · A/C · TV · Refrigeradora · Wi-Fi</p>
+            </div>
+            <span class="room-badge-sm badge-triple">Triple</span>
+          </div>
+          <div class="room-item">
+            <div class="room-item-info">
+              <h4>Departamento Doble — Depto 4</h4>
+              <p>Hasta 5 personas · 2 habitaciones · Baño privado · Cocina · A/C · TV</p>
+            </div>
+            <span class="room-badge-sm badge-doble">Doble</span>
+          </div>
+          <div class="room-item">
+            <div class="room-item-info">
+              <h4>Departamento Doble — Cabaña 10</h4>
+              <p>Hasta 6 personas · 2 habitaciones · Baño privado · A/C · TV</p>
+            </div>
+            <span class="room-badge-sm badge-doble">Doble</span>
+          </div>
+          <div class="room-item">
+            <div class="room-item-info">
+              <h4>Departamento Doble — Cabaña 11</h4>
+              <p>Hasta 6 personas · 2 habitaciones · Baño privado · A/C · TV</p>
+            </div>
+            <span class="room-badge-sm badge-doble">Doble</span>
+          </div>
+          <div class="room-item">
+            <div class="room-item-info">
+              <h4>Habitación Matrimonial — Cabaña 6</h4>
+              <p>2 personas · Cama matrimonial · Baño privado · A/C · TV · Refrigeradora</p>
+            </div>
+            <span class="room-badge-sm badge-mat">Matrimonial</span>
+          </div>
+          <div class="room-item">
+            <div class="room-item-info">
+              <h4>Habitación Matrimonial — Cabaña 8</h4>
+              <p>2 personas · Cama matrimonial · Baño privado · A/C · TV · Refrigeradora</p>
+            </div>
+            <span class="room-badge-sm badge-mat">Matrimonial</span>
+          </div>
+          <div class="room-item">
+            <div class="room-item-info">
+              <h4>Habitación Matrimonial — Cabaña 12</h4>
+              <p>2 personas · Cama matrimonial · Baño privado · A/C · TV · Refrigeradora</p>
+            </div>
+            <span class="room-badge-sm badge-mat">Matrimonial</span>
+          </div>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Habitaciones</h4>
-        <ul>
-          <li>Departamento Triple</li>
-          <li>Departamento Doble</li>
-          <li>Habitación Matrimonial</li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contacto</h4>
-        <ul>
-          <li><a href="https://wa.me/593963560568">📱 +593 96 356 0568</a></li>
-          <li>📍 Tonsupa, Esmeraldas</li>
-          <li><a href="https://www.instagram.com/" target="_blank">📸 Instagram</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2025 El Remanso – Hostería Turística Tonsupa</span>
-    </div>
-  </footer>
 
-  <a href="https://wa.me/593963560568" target="_blank" class="wa-float" title="WhatsApp">
-    <svg viewBox="0 0 24 24" fill="white" width="30" height="30"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  </a>
+      <!-- FOTOS -->
+      <div class="page" id="page-fotos">
+        <h2 class="page-title">📸 Cómo subir fotos</h2>
+        <p class="page-desc">Sigue estos pasos para agregar o cambiar fotos en el sitio.</p>
+        <div class="instructions">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Guarda la foto en tu computadora</h4>
+              <p>Descarga la foto de tu celular o WhatsApp a tu PC.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Copia la foto a la carpeta images</h4>
+              <p>Ve a esta carpeta en tu PC y pega la foto ahí:</p>
+              <div class="code-block">C:\Users\Njpf\el-remanso\images\</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Renombra la foto con el nombre correcto</h4>
+              <p>Cada foto tiene un nombre específico en el sitio:</p>
+              <div class="code-block">
+                hero.jpg → foto de fondo principal<br/>
+                triple.jpg → departamento triple<br/>
+                doble-habitacion.jpg → departamento doble 4<br/>
+                cabana10.jpg → cabaña 10<br/>
+                cabana11.jpg → cabaña 11<br/>
+                mat6-2.jpg → matrimonial cabaña 6<br/>
+                mat8-2.jpg → matrimonial cabaña 8<br/>
+                mat12-1.jpg → matrimonial cabaña 12<br/>
+                piscina1.jpg → piscina<br/>
+                area-social.jpg → área social<br/>
+                gimnasio.jpg → gimnasio<br/>
+                billar.jpg → billar<br/>
+                fachada.jpg → fachada exterior
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Sube los cambios a internet</h4>
+              <p>En la terminal de VS Code ejecuta:</p>
+              <div class="code-block">git add .<br/>git commit -m "nuevas fotos"<br/>git push</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <script src="js/main.js"></script>
+      <!-- SITIO -->
+      <div class="page" id="page-sitio">
+        <h2 class="page-title">🌐 Ver sitio web</h2>
+        <p class="page-desc">Accede al sitio web público de El Remanso.</p>
+        <div class="form-section">
+          <h3>Links del sitio</h3>
+          <p style="margin-bottom:1rem;font-size:.95rem;">
+            🌍 <strong>Sitio público:</strong><br/>
+            <a href="https://elremanso-tonsupa.netlify.app" target="_blank" style="color:#0F3554;font-size:1.1rem;font-weight:600;">elremanso-tonsupa.netlify.app</a>
+          </p>
+          <a href="https://elremanso-tonsupa.netlify.app" target="_blank" style="display:inline-block;background:#0F3554;color:#fff;padding:.8rem 1.8rem;border-radius:8px;font-weight:600;text-decoration:none;margin-top:.5rem;">
+            Abrir sitio web →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // ─── CREDENCIALES ────────────────────────────
+  // Cambia estas credenciales cuando quieras
+  const USUARIO = 'admin';
+  const PASSWORD = 'remanso2025';
+
+  function login() {
+    const u = document.getElementById('user').value;
+    const p = document.getElementById('pass').value;
+    if (u === USUARIO && p === PASSWORD) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('panel').style.display = 'block';
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  }
+
+  function logout() {
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('panel').style.display = 'none';
+    document.getElementById('user').value = '';
+    document.getElementById('pass').value = '';
+  }
+
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  function mostrarInstrucciones() {
+    document.getElementById('instruccionesDiv').style.display = 'block';
+    document.getElementById('saveMsg').style.display = 'inline';
+  }
+</script>
 </body>
 </html>
-
