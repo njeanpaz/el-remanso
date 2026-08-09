@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin – El Remanso</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f0f4f0; }
+    .topbar { background: #1a6b45; color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; }
+    .topbar h1 { font-size: 1.2rem; }
+    .topbar a { color: white; text-decoration: none; font-size: 0.9rem; }
+    .container { max-width: 960px; margin: 30px auto; padding: 0 20px; }
+    .seccion { background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .seccion h2 { color: #1a6b45; margin-bottom: 20px; font-size: 1.1rem; }
+    .hab-card { border: 2px solid #e0e0e0; border-radius: 12px; margin-bottom: 25px; overflow: hidden; }
+    .hab-header { background: #f8f8f8; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; }
+    .hab-header span { font-weight: bold; color: #1a6b45; font-size: 1rem; }
+    .carrete { padding: 15px; }
+    .carrete-label { font-size: 0.8rem; color: #888; margin-bottom: 10px; }
+    .fotos-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; min-height: 140px; align-items: center; }
+    .foto-thumb { position: relative; flex-shrink: 0; width: 160px; height: 120px; border-radius: 8px; overflow: hidden; border: 2px solid #e0e0e0; }
+    .foto-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .foto-thumb .x { position: absolute; top: 4px; right: 4px; background: rgba(220,38,38,0.9); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 0.85rem; }
+    .foto-thumb .lbl { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.55); color: white; font-size: 0.7rem; padding: 3px 6px; text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .add-btn { flex-shrink: 0; width: 130px; height: 120px; border: 2px dashed #1a6b45; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: #1a6b45; font-size: 0.82rem; gap: 6px; background: #f0faf5; }
+    .add-btn:hover { background: #e0f5eb; }
+    .hab-info { padding: 0 15px 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .campo { display: flex; flex-direction: column; gap: 3px; }
+    .campo.full { grid-column: 1/-1; }
+    .campo label { font-size: 0.75rem; color: #888; }
+    .campo input, .campo textarea { border: 1.5px solid #e0e0e0; border-radius: 6px; padding: 7px 10px; font-size: 0.88rem; font-family: inherit; }
+    .campo input:focus, .campo textarea:focus { outline: none; border-color: #1a6b45; }
+    .campo textarea { resize: none; height: 65px; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
+    .btn-verde { background: #1a6b45; color: white; }
+    .btn-gris { background: #e0e0e0; color: #333; }
+    .btn-rojo { background: #dc2626; color: white; font-size: 0.82rem; padding: 7px 14px; border-radius: 6px; border: none; cursor: pointer; }
+    .campo-g { margin-bottom: 15px; }
+    .campo-g label { display: block; font-size: 0.85rem; color: #555; margin-bottom: 5px; }
+    .campo-g input { width: 100%; border: 1.5px solid #e0e0e0; border-radius: 8px; padding: 10px 12px; font-size: 0.95rem; }
+    .campo-g input:focus { outline: none; border-color: #1a6b45; }
+    .portada-box { width:100%; height:200px; border-radius:10px; overflow:hidden; background:#f0f0f0; margin-bottom:15px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:2px dashed #1a6b45; position:relative; }
+    .portada-box img { width:100%; height:100%; object-fit:cover; position:absolute; }
+    .instrucciones { background: #fffbeb; border: 1.5px solid #f59e0b; border-radius: 10px; padding: 15px 20px; font-size: 0.88rem; line-height: 1.8; }
+    pre { background: #1e293b; color: #e2e8f0; padding: 10px 14px; border-radius: 6px; margin: 6px 0; font-size: 0.85rem; }
+    #msg { color: #1a6b45; font-size: 0.9rem; display: none; margin-left: 10px; }
+    .cargando { color: #1a6b45; font-size: 0.85rem; display: none; margin-left: 10px; }
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <h1>🌴 El Remanso — Panel Admin</h1>
+  <a href="https://elremanso-tonsupa.netlify.app" target="_blank">Ver sitio →</a>
+</div>
+<div class="container">
+
+  <div class="seccion">
+    <h2>🖼️ Foto de Portada</h2>
+    <p style="font-size:0.85rem;color:#888;margin-bottom:15px">Fondo grande detrás de "Tu paraíso junto al Pacífico"</p>
+    <div class="portada-box" id="portada-box" onclick="document.getElementById('portada-file').click()">
+      <div id="portada-placeholder" style="text-align:center;color:#888;z-index:1">
+        <div style="font-size:2.5rem">🌅</div>
+        <div style="margin-top:8px;font-size:0.9rem">Clic para subir foto de portada</div>
+      </div>
+    </div>
+    <input type="file" id="portada-file" accept="image/*" style="display:none" onchange="subirPortada(this)"/>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn btn-verde" onclick="document.getElementById('portada-file').click()">📤 Cambiar foto de portada</button>
+      <span id="cargando-portada" class="cargando">⏳ Procesando foto...</span>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <h2>🛏️ Habitaciones — Fotos y Textos</h2>
+    <div id="lista"></div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px">
+      <button class="btn btn-verde" onclick="guardar()">💾 Guardar cambios</button>
+      <button class="btn btn-gris"
