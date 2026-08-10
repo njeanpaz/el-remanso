@@ -84,24 +84,7 @@
     <h2 class="section-title">Instalaciones</h2>
     <p class="section-desc">Piscina privada, áreas sociales y a solo 30 metros de la playa de Tonsupa.</p>
   </div>
-  <div class="gallery-grid">
-    <div class="gallery-item gallery-big">
-      <img id="gal-piscina" src="images/piscina.jpg" alt="Piscina" onerror="this.style.display='none'"/>
-      <div class="gallery-label">Piscina privada</div>
-    </div>
-    <div class="gallery-item">
-      <img id="gal-playa" src="images/playa.jpg" alt="Playa" onerror="this.style.display='none'"/>
-      <div class="gallery-label">A 30m de la playa</div>
-    </div>
-    <div class="gallery-item">
-      <img id="gal-sala" src="images/sala.jpg" alt="Sala" onerror="this.style.display='none'"/>
-      <div class="gallery-label">Áreas sociales</div>
-    </div>
-    <div class="gallery-item">
-      <img id="gal-cocina" src="images/cocina.jpg" alt="Cocina" onerror="this.style.display='none'"/>
-      <div class="gallery-label">Cocina equipada</div>
-    </div>
-  </div>
+  <div class="gallery-grid" id="gallery-grid"></div>
 </section>
 
 <section class="section location-section" id="ubicacion">
@@ -201,37 +184,42 @@
 
 <script src="js/main.js"></script>
 <script>
-// Lee data.json del servidor
-fetch('data.json')
+fetch('data.json?v=' + Date.now())
   .then(r => r.json())
   .then(data => iniciar(data))
   .catch(() => iniciar({}));
 
 function iniciar(data) {
   const cabanas = data.cabanas || [];
-  const inst    = data || {};
-  const cfg     = data.cfg || {};
-  const carIdx  = {};
+  const instalaciones = data.instalaciones || [];
+  const cfg = data.cfg || {};
+  const carIdx = {};
   const carTimers = {};
 
   // PORTADA
   const heroBg = document.getElementById('hero-bg');
-  if (inst.portada) {
+  if (data.portada) {
     const img = document.createElement('img');
-    img.src = inst.portada;
+    img.src = data.portada;
     heroBg.appendChild(img);
   }
 
-  // INSTALACIONES
-  if (inst.piscina) document.getElementById('gal-piscina').src = inst.piscina;
-  if (inst.playa)   document.getElementById('gal-playa').src   = inst.playa;
-  if (inst.sala)    document.getElementById('gal-sala').src    = inst.sala;
-  if (inst.cocina)  document.getElementById('gal-cocina').src  = inst.cocina;
+  // INSTALACIONES DINAMICAS
+  const gallery = document.getElementById('gallery-grid');
+  if (instalaciones.length > 0) {
+    instalaciones.forEach((inst, i) => {
+      if (!inst.foto) return;
+      const div = document.createElement('div');
+      div.className = 'gallery-item' + (i === 0 ? ' gallery-big' : '');
+      div.innerHTML = `<img src="${inst.foto}" alt="${inst.nombre}"/><div class="gallery-label">${inst.nombre}</div>`;
+      gallery.appendChild(div);
+    });
+  }
 
   // HABITACIONES
-  const grid      = document.getElementById('rooms-grid');
+  const grid = document.getElementById('rooms-grid');
   const selectHab = document.getElementById('habitacion');
-  const footerH   = document.getElementById('footer-habs');
+  const footerH = document.getElementById('footer-habs');
 
   const mostrar = cabanas.length > 0 ? cabanas : [
     {id:1,tipo:'Triple',      nombre:'Departamento Triple',    desc:'Perfecto para grupos de 3.',cap:'3 personas',fotos:[]},
@@ -242,7 +230,7 @@ function iniciar(data) {
   mostrar.forEach((c, idx) => {
     carIdx[c.id] = 0;
     const card = document.createElement('div');
-    const featured = c.tipo === 'Doble' && cabanas.filter(x=>x.tipo==='Doble').indexOf(c)===0;
+    const featured = idx === Math.floor(mostrar.length / 2);
     card.className = 'room-card' + (featured ? ' room-featured' : '');
 
     let fotosHTML = '';
@@ -260,9 +248,7 @@ function iniciar(data) {
             </div>
           ` : ''}
         </div>`;
-      if (c.fotos.length > 1) {
-        carTimers[c.id] = setInterval(() => mover(c.id, 1), 3500);
-      }
+      if (c.fotos.length > 1) carTimers[c.id] = setInterval(() => mover(c.id, 1), 3500);
     } else {
       fotosHTML = `<div class="sin-foto"><div style="font-size:3rem">🏠</div><div style="margin-top:8px">Foto próximamente</div></div>`;
     }
@@ -275,9 +261,9 @@ function iniciar(data) {
       <div class="room-body">
         <p class="room-type">${c.tipo}</p>
         <h3 class="room-name">${c.nombre}</h3>
-        <p class="room-desc">${c.desc}</p>
+        <p class="room-desc">${c.desc || ''}</p>
         <ul class="room-tags">
-          <li>👥 ${c.cap}</li>
+          <li>👥 ${c.cap || '2 personas'}</li>
           <li>🍳 Cocina</li>
           <li>🛋️ Sala</li>
           <li>🚿 Baño privado</li>
@@ -308,9 +294,9 @@ function iniciar(data) {
   // CONFIG
   const wa = cfg.whatsapp || '593963560568';
   const ig = cfg.instagram || 'https://www.instagram.com/';
-  document.getElementById('wa-link').href  = `https://wa.me/${wa}`;
-  document.getElementById('wa-float').href = `https://wa.me/${wa}`;
-  document.getElementById('ig-link').href  = ig;
+  document.getElementById('wa-link').href   = `https://wa.me/${wa}`;
+  document.getElementById('wa-float').href  = `https://wa.me/${wa}`;
+  document.getElementById('ig-link').href   = ig;
   document.getElementById('ig-footer').href = ig;
   if (cfg.maps) document.getElementById('maps-link').href = cfg.maps;
 

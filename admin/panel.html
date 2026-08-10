@@ -66,13 +66,12 @@
     .pub-box p{font-size:.85rem;opacity:.85;margin-bottom:15px;}
     .pub-btn{width:100%;padding:14px;background:white;color:#1a6b45;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;}
     .pub-btn:hover{background:#e8f5ee;}
-    .pasos{background:white;border-radius:10px;padding:14px;margin-top:12px;color:#1c2128;}
+    .pasos{background:white;border-radius:10px;padding:14px;margin-top:12px;color:#1c2128;display:none;}
     .pasos p{font-size:.82rem;margin-bottom:6px;color:#555;}
     .paso{background:#f8f8f8;border-radius:6px;padding:8px 12px;font-family:monospace;font-size:.82rem;margin-bottom:6px;color:#1a6b45;user-select:all;}
   </style>
 </head>
 <body>
-
 <div class="topbar">
   <h1>El Remanso — Panel Admin</h1>
   <a href="https://elremanso-tonsupa.netlify.app" target="_blank">Ver sitio</a>
@@ -85,22 +84,17 @@
 
 <div class="container">
 
-  <!-- PUBLICAR -->
   <div class="pub-box">
     <h2>Publicar cambios en el sitio web</h2>
-    <p>Cuando termines de subir fotos, presiona el boton para descargar el archivo y publicar.</p>
+    <p>Cuando termines de subir fotos presiona el boton.</p>
     <button class="pub-btn" onclick="publicar()">Descargar y publicar</button>
-    <div class="pasos" id="pasos" style="display:none">
-      <p><strong>Archivo descargado. Ahora en el terminal de VS Code escribe:</strong></p>
-      <div class="paso">copy "$env:USERPROFILE\Downloads\data.json" data.json</div>
-      <div class="paso">git add .</div>
-      <div class="paso">git commit -m "actualizar"</div>
-      <div class="paso">git push</div>
+    <div class="pasos" id="pasos">
+      <p><strong>Archivo descargado. Escribe en el terminal de VS Code:</strong></p>
+      <div class="paso">.\publicar.ps1</div>
       <p style="margin-top:8px;color:#1a6b45;font-weight:bold">En 2 minutos aparece en el sitio.</p>
     </div>
   </div>
 
-  <!-- PORTADA -->
   <div class="seccion">
     <div class="sec-title">Foto de Portada</div>
     <div class="sec-sub">Fondo grande detras de "Tu paraiso junto al Pacifico"</div>
@@ -112,12 +106,11 @@
     <input type="file" id="inp-portada" accept="image/*" style="display:none" onchange="subirUna(this,'portada','img-portada','ph-portada')"/>
   </div>
 
-  <!-- CABANAS -->
   <div class="seccion">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:15px;flex-wrap:wrap;gap:10px;">
       <div>
         <div class="sec-title">Cabanas y Habitaciones</div>
-        <div class="sec-sub">Clic para subir fotos. Manten Ctrl para elegir varias a la vez.</div>
+        <div class="sec-sub">Clic para subir fotos. Manten Ctrl para elegir varias.</div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="btn btn-v" onclick="nuevaCabana('Triple')">+ Triple</button>
@@ -129,54 +122,15 @@
     <div class="cabanas-grid" id="cab-grid"></div>
   </div>
 
-  <!-- INSTALACIONES -->
   <div class="seccion">
     <div class="sec-title">Instalaciones</div>
-    <div class="sec-sub">Fotos de piscina, playa, sala y cocina</div>
-    <div class="inst-grid">
-      <div class="inst-item">
-        <div class="lbl">Piscina</div>
-        <div class="foto-box" style="height:140px" onclick="document.getElementById('inp-piscina').click()">
-          <div class="ph"><div class="ico">🏊</div><div class="txt">Subir foto</div></div>
-          <img id="img-piscina" style="display:none"/>
-          <div class="hover-capa">Cambiar</div>
-        </div>
-        <input type="file" id="inp-piscina" accept="image/*" style="display:none" onchange="subirUna(this,'piscina','img-piscina',null)"/>
-      </div>
-      <div class="inst-item">
-        <div class="lbl">Playa</div>
-        <div class="foto-box" style="height:140px" onclick="document.getElementById('inp-playa').click()">
-          <div class="ph"><div class="ico">🏖️</div><div class="txt">Subir foto</div></div>
-          <img id="img-playa" style="display:none"/>
-          <div class="hover-capa">Cambiar</div>
-        </div>
-        <input type="file" id="inp-playa" accept="image/*" style="display:none" onchange="subirUna(this,'playa','img-playa',null)"/>
-      </div>
-      <div class="inst-item">
-        <div class="lbl">Sala comun</div>
-        <div class="foto-box" style="height:140px" onclick="document.getElementById('inp-sala').click()">
-          <div class="ph"><div class="ico">🛋️</div><div class="txt">Subir foto</div></div>
-          <img id="img-sala" style="display:none"/>
-          <div class="hover-capa">Cambiar</div>
-        </div>
-        <input type="file" id="inp-sala" accept="image/*" style="display:none" onchange="subirUna(this,'sala','img-sala',null)"/>
-      </div>
-      <div class="inst-item">
-        <div class="lbl">Cocina</div>
-        <div class="foto-box" style="height:140px" onclick="document.getElementById('inp-cocina').click()">
-          <div class="ph"><div class="ico">🍳</div><div class="txt">Subir foto</div></div>
-          <img id="img-cocina" style="display:none"/>
-          <div class="hover-capa">Cambiar</div>
-        </div>
-        <input type="file" id="inp-cocina" accept="image/*" style="display:none" onchange="subirUna(this,'cocina','img-cocina',null)"/>
-      </div>
-    </div>
+    <div class="sec-sub">Fotos de areas comunes</div>
+    <div class="inst-grid" id="inst-grid"></div>
+    <button class="btn btn-v" style="margin-top:12px" onclick="agregarInstalacion()">+ Agregar area</button>
   </div>
 
-  <!-- INFO -->
   <div class="seccion">
     <div class="sec-title">Informacion General</div>
-    <div class="sec-sub">WhatsApp, Instagram, Google Maps</div>
     <div class="campo"><label>WhatsApp</label><input type="tel" id="wa" placeholder="593963560568"/></div>
     <div class="campo"><label>Instagram (link)</label><input type="url" id="ig" placeholder="https://instagram.com/elremanso"/></div>
     <div class="campo"><label>Google Maps (link)</label><input type="url" id="maps" placeholder="https://maps.google.com/?q=..."/></div>
@@ -190,23 +144,30 @@
 const CLD_CLOUD  = 'yejx4eyi';
 const CLD_PRESET = 'el-remanso';
 
+// CARGAR DATOS
 let cabanas = JSON.parse(localStorage.getItem('cabs_v4') || 'null') || [
-  {id:1, tipo:'Triple',      nombre:'Triple 1',      desc:'Perfecto para grupos de 3.',       cap:'3 personas', fotos:[]},
-  {id:2, tipo:'Triple',      nombre:'Triple 2',      desc:'Perfecto para grupos de 3.',       cap:'3 personas', fotos:[]},
-  {id:3, tipo:'Doble',       nombre:'Doble 1',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
-  {id:4, tipo:'Doble',       nombre:'Doble 2',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
-  {id:5, tipo:'Doble',       nombre:'Doble 3',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
-  {id:6, tipo:'Matrimonial', nombre:'Matrimonial 1', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
-  {id:7, tipo:'Matrimonial', nombre:'Matrimonial 2', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
-  {id:8, tipo:'Matrimonial', nombre:'Matrimonial 3', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
-  {id:9, tipo:'Matrimonial', nombre:'Matrimonial 4', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
-  {id:10,tipo:'Matrimonial', nombre:'Matrimonial 5', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
+  {id:1,tipo:'Triple',      nombre:'Triple 1',      desc:'Perfecto para grupos de 3.',       cap:'3 personas', fotos:[]},
+  {id:2,tipo:'Triple',      nombre:'Triple 2',      desc:'Perfecto para grupos de 3.',       cap:'3 personas', fotos:[]},
+  {id:3,tipo:'Doble',       nombre:'Doble 1',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
+  {id:4,tipo:'Doble',       nombre:'Doble 2',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
+  {id:5,tipo:'Doble',       nombre:'Doble 3',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
+  {id:6,tipo:'Matrimonial', nombre:'Matrimonial 1', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
+  {id:7,tipo:'Matrimonial', nombre:'Matrimonial 2', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
+  {id:8,tipo:'Matrimonial', nombre:'Matrimonial 3', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
+  {id:9,tipo:'Matrimonial', nombre:'Matrimonial 4', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
+  {id:10,tipo:'Matrimonial',nombre:'Matrimonial 5', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
 ];
-let cfg  = JSON.parse(localStorage.getItem('cfg')    || '{}');
-let inst = JSON.parse(localStorage.getItem('inst_v2')|| '{}');
+let inst = JSON.parse(localStorage.getItem('inst_v3') || 'null') || [
+  {id:'piscina', nombre:'Piscina',    foto:null},
+  {id:'playa',   nombre:'Playa',      foto:null},
+  {id:'sala',    nombre:'Sala comun', foto:null},
+  {id:'cocina',  nombre:'Cocina',     foto:null},
+];
+let cfg = JSON.parse(localStorage.getItem('cfg') || '{}');
 const carIdx = {};
 const carTimers = {};
 
+// CLOUDINARY
 async function subirCloudinary(file) {
   const fd = new FormData();
   fd.append('file', file);
@@ -214,16 +175,20 @@ async function subirCloudinary(file) {
   const res = await fetch(`https://api.cloudinary.com/v1_1/${CLD_CLOUD}/image/upload`, {method:'POST',body:fd});
   const data = await res.json();
   if (data.secure_url) return data.secure_url;
-  throw new Error('Error');
+  throw new Error('Error subiendo');
 }
 
+// SUBIR FOTO UNICA
 async function subirUna(input, clave, imgId, phId) {
   const file = input.files[0]; if (!file) return;
   mostrarCargando('Subiendo foto...');
   try {
     const url = await subirCloudinary(file);
-    inst[clave] = url;
-    localStorage.setItem('inst_v2', JSON.stringify(inst));
+    // Portada va aparte
+    if (clave === 'portada') {
+      cfg.portada = url;
+      localStorage.setItem('cfg', JSON.stringify(cfg));
+    }
     const img = document.getElementById(imgId);
     if (img) { img.src = url; img.style.display = 'block'; }
     if (phId) document.getElementById(phId).style.display = 'none';
@@ -232,6 +197,7 @@ async function subirUna(input, clave, imgId, phId) {
   ocultarCargando();
 }
 
+// SUBIR FOTOS CABANA
 async function subirFotosCabana(id, input) {
   const files = Array.from(input.files);
   if (!files.length) return;
@@ -250,6 +216,23 @@ async function subirFotosCabana(id, input) {
   ocultarCargando();
 }
 
+// SUBIR FOTO INSTALACION
+async function subirFotoInst(input, id) {
+  const file = input.files[0]; if (!file) return;
+  const item = inst.find(i => i.id === id);
+  if (!item) return;
+  mostrarCargando('Subiendo foto...');
+  try {
+    const url = await subirCloudinary(file);
+    item.foto = url;
+    localStorage.setItem('inst_v3', JSON.stringify(inst));
+    renderInst();
+    toast('Foto de ' + item.nombre + ' subida');
+  } catch(e) { toast('Error al subir.'); }
+  ocultarCargando();
+}
+
+// CARRETE
 function iniciarCarrete(id, total) {
   if (carTimers[id]) clearInterval(carTimers[id]);
   if (total > 1) carTimers[id] = setInterval(() => moverCar(id, 1), 3500);
@@ -275,6 +258,7 @@ function quitarFotoActual(id) {
   render();
 }
 
+// RENDER CABANAS
 function render() {
   const grid = document.getElementById('cab-grid');
   grid.innerHTML = '';
@@ -282,7 +266,7 @@ function render() {
     if (!carIdx[c.id]) carIdx[c.id] = 0;
     const div = document.createElement('div');
     div.className = 'cab-card';
-    const tieneFotos = c.fotos.length > 0;
+    const tieneFotos = c.fotos && c.fotos.length > 0;
     div.innerHTML = `
       <div class="cab-header">
         <input class="cab-nombre" value="${c.nombre}" onchange="upd(${c.id},'nombre',this.value)"/>
@@ -291,7 +275,7 @@ function render() {
           <button class="btn-r" onclick="eliminarCabana(${c.id})">X</button>
         </div>
       </div>
-      <div class="cab-count">${c.fotos.length} foto(s)</div>
+      <div class="cab-count">${c.fotos ? c.fotos.length : 0} foto(s)</div>
       <div class="car-wrap">
         ${tieneFotos ? `
           <div class="car-slides" id="sl-${c.id}">
@@ -318,30 +302,57 @@ function render() {
       </div>
       <div class="cab-body">
         <label>Descripcion</label>
-        <textarea onchange="upd(${c.id},'desc',this.value)">${c.desc}</textarea>
+        <textarea onchange="upd(${c.id},'desc',this.value)">${c.desc||''}</textarea>
         <label>Capacidad</label>
-        <input value="${c.cap}" onchange="upd(${c.id},'cap',this.value)"/>
+        <input value="${c.cap||''}" onchange="upd(${c.id},'cap',this.value)"/>
       </div>
     `;
     grid.appendChild(div);
     if (tieneFotos) iniciarCarrete(c.id, c.fotos.length);
   });
 
-  // Cargar fotos guardadas
-  Object.keys(inst).forEach(k => {
-    const img = document.getElementById('img-' + k);
-    if (img && inst[k]) {
-      img.src = inst[k];
-      img.style.display = 'block';
-    }
-  });
-  if (inst.portada) {
-    document.getElementById('img-portada').src = inst.portada;
+  // Portada
+  if (cfg.portada) {
+    document.getElementById('img-portada').src = cfg.portada;
     document.getElementById('img-portada').style.display = 'block';
     document.getElementById('ph-portada').style.display = 'none';
   }
 }
 
+// RENDER INSTALACIONES
+function renderInst() {
+  const grid = document.getElementById('inst-grid');
+  grid.innerHTML = inst.map(i => `
+    <div class="inst-item">
+      <div class="lbl">${i.nombre}</div>
+      <div class="foto-box" style="height:140px" onclick="document.getElementById('ii-${i.id}').click()">
+        <div class="ph" ${i.foto?'style="display:none"':''}><div class="ico">📸</div><div class="txt">Subir foto</div></div>
+        <img src="${i.foto||''}" style="display:${i.foto?'block':'none'}"/>
+        <div class="hover-capa">Cambiar</div>
+      </div>
+      <input type="file" id="ii-${i.id}" accept="image/*" style="display:none" onchange="subirFotoInst(this,'${i.id}')"/>
+      <button class="btn-r" style="margin-top:6px;width:100%" onclick="eliminarInst('${i.id}')">Eliminar area</button>
+    </div>
+  `).join('');
+}
+
+function agregarInstalacion() {
+  const nombre = prompt('Nombre del area (ej: Jardin, BBQ, Entrada):');
+  if (!nombre) return;
+  const id = 'inst_' + Date.now();
+  inst.push({id, nombre, foto: null});
+  localStorage.setItem('inst_v3', JSON.stringify(inst));
+  renderInst();
+}
+
+function eliminarInst(id) {
+  if (!confirm('Eliminar esta area?')) return;
+  inst = inst.filter(i => i.id !== id);
+  localStorage.setItem('inst_v3', JSON.stringify(inst));
+  renderInst();
+}
+
+// CRUD CABANAS
 function upd(id, campo, val) {
   const c = cabanas.find(c => c.id === id);
   if (c) { c[campo] = val; guardarCabanas(); }
@@ -350,7 +361,7 @@ function upd(id, campo, val) {
 function nuevaCabana(tipo) {
   const n = cabanas.filter(c => c.tipo === tipo).length + 1;
   const id = Date.now();
-  cabanas.push({id, tipo, nombre:tipo+' '+n, desc:'Descripcion aqui.', cap:'2 personas', fotos:[]});
+  cabanas.push({id, tipo, nombre:tipo+' '+n, desc:'', cap:'2 personas', fotos:[]});
   guardarCabanas(); render();
   toast('Cabana ' + tipo + ' ' + n + ' agregada');
 }
@@ -365,38 +376,44 @@ function eliminarCabana(id) {
 
 function guardarCabanas() {
   try { localStorage.setItem('cabs_v4', JSON.stringify(cabanas)); }
-  catch(e) { toast('Las fotos ya estan guardadas en Cloudinary.'); }
+  catch(e) { toast('Las fotos ya estan en Cloudinary.'); }
 }
 
+// PUBLICAR
 function publicar() {
+  const cabs = JSON.parse(localStorage.getItem('cabs_v4') || '[]');
+  const instItems = JSON.parse(localStorage.getItem('inst_v3') || '[]');
+  const cfgData = JSON.parse(localStorage.getItem('cfg') || '{}');
+
   const data = {
-    portada: inst.portada || null,
-    piscina: inst.piscina || null,
-    playa:   inst.playa   || null,
-    sala:    inst.sala    || null,
-    cocina:  inst.cocina  || null,
-    cabanas: cabanas,
-    cfg:     cfg
+    portada: cfgData.portada || null,
+    instalaciones: instItems,
+    cabanas: cabs,
+    cfg: {
+      whatsapp:  cfgData.whatsapp  || '593963560568',
+      instagram: cfgData.instagram || '',
+      maps:      cfgData.maps      || ''
+    }
   };
+
   const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'data.json';
   a.click();
   document.getElementById('pasos').style.display = 'block';
-  toast('Archivo descargado. Sigue los pasos.');
+  toast('Descargado. Corre .\\publicar.ps1 en el terminal.');
 }
 
+// CONFIG
 document.getElementById('wa').value   = cfg.whatsapp  || '593963560568';
 document.getElementById('ig').value   = cfg.instagram || '';
 document.getElementById('maps').value = cfg.maps      || '';
 
 function guardarCfg() {
-  cfg = {
-    whatsapp:  document.getElementById('wa').value,
-    instagram: document.getElementById('ig').value,
-    maps:      document.getElementById('maps').value
-  };
+  cfg.whatsapp  = document.getElementById('wa').value;
+  cfg.instagram = document.getElementById('ig').value;
+  cfg.maps      = document.getElementById('maps').value;
   localStorage.setItem('cfg', JSON.stringify(cfg));
   toast('Informacion guardada');
 }
@@ -415,6 +432,7 @@ function toast(msg) {
 }
 
 render();
+renderInst();
 </script>
 </body>
 </html>
