@@ -22,7 +22,7 @@
     .carrete-btn.prev{left:10px;}
     .carrete-btn.next{right:10px;}
     .carrete-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:5;}
-    .carrete-dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;}
+    .carrete-dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);}
     .carrete-dots span.activo{background:white;}
     .sin-foto{width:100%;height:260px;background:#f0f0f0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;border-radius:12px 12px 0 0;}
   </style>
@@ -84,7 +84,7 @@
     <h2 class="section-title">Instalaciones</h2>
     <p class="section-desc">Piscina privada, áreas sociales y a solo 30 metros de la playa de Tonsupa.</p>
   </div>
-  <div class="gallery-grid" id="gallery-grid">
+  <div class="gallery-grid">
     <div class="gallery-item gallery-big">
       <img id="gal-piscina" src="images/piscina.jpg" alt="Piscina" onerror="this.style.display='none'"/>
       <div class="gallery-label">Piscina privada</div>
@@ -153,7 +153,7 @@
         </div>
         <div class="form-group form-full">
           <label>Mensaje <span class="optional">(opcional)</span></label>
-          <textarea id="mensaje" rows="3" placeholder="Alguna solicitud especial..."></textarea>
+          <textarea id="mensaje" rows="3"></textarea>
         </div>
         <button class="btn btn-whatsapp" id="btnReservar">
           <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -201,134 +201,131 @@
 
 <script src="js/main.js"></script>
 <script>
-// Lee datos del panel admin (localStorage compartido)
-const cabanas = JSON.parse(localStorage.getItem('cabs_v4') || 'null') || [];
-const inst    = JSON.parse(localStorage.getItem('inst_v2') || '{}');
-const cfg     = JSON.parse(localStorage.getItem('cfg')     || '{}');
-const carIdx  = {};
-const carTimers = {};
+// Lee data.json del servidor
+fetch('data.json')
+  .then(r => r.json())
+  .then(data => iniciar(data))
+  .catch(() => iniciar({}));
 
-// PORTADA
-const heroBg = document.getElementById('hero-bg');
-if (inst.portada) {
-  const img = document.createElement('img');
-  img.src = inst.portada;
-  heroBg.appendChild(img);
-} else {
-  heroBg.style.background = 'linear-gradient(135deg,#0F3554 0%,#1A5276 50%,#1E8449 100%)';
-}
+function iniciar(data) {
+  const cabanas = data.cabanas || [];
+  const inst    = data || {};
+  const cfg     = data.cfg || {};
+  const carIdx  = {};
+  const carTimers = {};
 
-// INSTALACIONES
-if (inst.piscina) document.getElementById('gal-piscina').src = inst.piscina;
-if (inst.playa)   document.getElementById('gal-playa').src   = inst.playa;
-if (inst.sala)    document.getElementById('gal-sala').src    = inst.sala;
-if (inst.cocina)  document.getElementById('gal-cocina').src  = inst.cocina;
-
-// HABITACIONES
-const grid      = document.getElementById('rooms-grid');
-const selectHab = document.getElementById('habitacion');
-const footerH   = document.getElementById('footer-habs');
-
-// Agrupar por tipo
-const tipos = ['Triple','Doble','Matrimonial','Otra'];
-const grupos = {};
-tipos.forEach(t => grupos[t] = cabanas.filter(c => c.tipo === t));
-
-// Si no hay cabanas del admin usar defaults
-const mostrar = cabanas.length > 0 ? cabanas : [
-  {id:1,tipo:'Triple',      nombre:'Departamento Triple',    desc:'Perfecto para grupos de 3. Literas cómodas, cocina equipada, sala y baño privado.',cap:'3 personas',fotos:[]},
-  {id:2,tipo:'Doble',       nombre:'Departamento Doble',     desc:'Ideal para parejas o dos amigos. Mini cocina equipada, sala acogedora y baño privado.',cap:'2 personas',fotos:[]},
-  {id:3,tipo:'Matrimonial', nombre:'Habitación Matrimonial', desc:'Ambiente íntimo con cama matrimonial, decoración tropical y baño privado.',cap:'2 personas',fotos:[]},
-];
-
-mostrar.forEach((c, idx) => {
-  carIdx[c.id] = 0;
-  const card = document.createElement('div');
-  const esFeatured = c.tipo === 'Doble' && idx === Math.floor(mostrar.length/2);
-  card.className = 'room-card' + (esFeatured ? ' room-featured' : '');
-
-  let fotosHTML = '';
-  if (c.fotos && c.fotos.length > 0) {
-    fotosHTML = `
-      <div class="carrete-wrap">
-        <div class="carrete-slides" id="cs-${c.id}">
-          ${c.fotos.map(f=>`<img src="${f}" alt="${c.nombre}"/>`).join('')}
-        </div>
-        ${c.fotos.length > 1 ? `
-          <button class="carrete-btn prev" onclick="mover(${c.id},-1)">&#8249;</button>
-          <button class="carrete-btn next" onclick="mover(${c.id},1)">&#8250;</button>
-          <div class="carrete-dots" id="cd-${c.id}">
-            ${c.fotos.map((_,i)=>`<span class="${i===0?'activo':''}"></span>`).join('')}
-          </div>
-        ` : ''}
-      </div>`;
-    if (c.fotos.length > 1) autoCarrete(c.id, c.fotos.length);
-  } else {
-    fotosHTML = `<div class="sin-foto"><div style="font-size:3rem">🏠</div><div style="margin-top:8px">Foto próximamente</div></div>`;
+  // PORTADA
+  const heroBg = document.getElementById('hero-bg');
+  if (inst.portada) {
+    const img = document.createElement('img');
+    img.src = inst.portada;
+    heroBg.appendChild(img);
   }
 
-  card.innerHTML = `
-    <div class="room-img-wrap">
-      ${fotosHTML}
-      <span class="room-badge ${esFeatured?'badge-gold':''}">${c.tipo}</span>
-    </div>
-    <div class="room-body">
-      <p class="room-type">${c.tipo}</p>
-      <h3 class="room-name">${c.nombre}</h3>
-      <p class="room-desc">${c.desc}</p>
-      <ul class="room-tags">
-        <li>👥 ${c.cap}</li>
-        <li>🍳 Cocina</li>
-        <li>🛋️ Sala</li>
-        <li>🚿 Baño privado</li>
-      </ul>
-      <a href="#reservar" class="btn ${esFeatured?'btn-gold':'btn-dark'} room-btn">Consultar disponibilidad</a>
-    </div>`;
-  grid.appendChild(card);
+  // INSTALACIONES
+  if (inst.piscina) document.getElementById('gal-piscina').src = inst.piscina;
+  if (inst.playa)   document.getElementById('gal-playa').src   = inst.playa;
+  if (inst.sala)    document.getElementById('gal-sala').src    = inst.sala;
+  if (inst.cocina)  document.getElementById('gal-cocina').src  = inst.cocina;
 
-  const opt = document.createElement('option');
-  opt.value = c.nombre; opt.textContent = c.nombre;
-  selectHab.appendChild(opt);
+  // HABITACIONES
+  const grid      = document.getElementById('rooms-grid');
+  const selectHab = document.getElementById('habitacion');
+  const footerH   = document.getElementById('footer-habs');
 
-  const li = document.createElement('li');
-  li.textContent = c.nombre;
-  footerH.appendChild(li);
-});
+  const mostrar = cabanas.length > 0 ? cabanas : [
+    {id:1,tipo:'Triple',      nombre:'Departamento Triple',    desc:'Perfecto para grupos de 3.',cap:'3 personas',fotos:[]},
+    {id:2,tipo:'Doble',       nombre:'Departamento Doble',     desc:'Ideal para parejas.',       cap:'2 personas',fotos:[]},
+    {id:3,tipo:'Matrimonial', nombre:'Habitación Matrimonial', desc:'Ambiente íntimo.',           cap:'2 personas',fotos:[]},
+  ];
 
-function mover(id, dir) {
-  const c = mostrar.find(c => c.id === id);
-  if (!c || c.fotos.length <= 1) return;
-  carIdx[id] = (carIdx[id] + dir + c.fotos.length) % c.fotos.length;
-  const sl = document.getElementById('cs-' + id);
-  const dots = document.getElementById('cd-' + id);
-  if (sl) sl.style.transform = `translateX(-${carIdx[id]*100}%)`;
-  if (dots) dots.querySelectorAll('span').forEach((d,i) => d.className = i===carIdx[id]?'activo':'');
+  mostrar.forEach((c, idx) => {
+    carIdx[c.id] = 0;
+    const card = document.createElement('div');
+    const featured = c.tipo === 'Doble' && cabanas.filter(x=>x.tipo==='Doble').indexOf(c)===0;
+    card.className = 'room-card' + (featured ? ' room-featured' : '');
+
+    let fotosHTML = '';
+    if (c.fotos && c.fotos.length > 0) {
+      fotosHTML = `
+        <div class="carrete-wrap">
+          <div class="carrete-slides" id="cs-${c.id}">
+            ${c.fotos.map(f=>`<img src="${f}" alt="${c.nombre}"/>`).join('')}
+          </div>
+          ${c.fotos.length > 1 ? `
+            <button class="carrete-btn prev" onclick="mover(${c.id},-1)">&#8249;</button>
+            <button class="carrete-btn next" onclick="mover(${c.id},1)">&#8250;</button>
+            <div class="carrete-dots" id="cd-${c.id}">
+              ${c.fotos.map((_,i)=>`<span class="${i===0?'activo':''}"></span>`).join('')}
+            </div>
+          ` : ''}
+        </div>`;
+      if (c.fotos.length > 1) {
+        carTimers[c.id] = setInterval(() => mover(c.id, 1), 3500);
+      }
+    } else {
+      fotosHTML = `<div class="sin-foto"><div style="font-size:3rem">🏠</div><div style="margin-top:8px">Foto próximamente</div></div>`;
+    }
+
+    card.innerHTML = `
+      <div class="room-img-wrap">
+        ${fotosHTML}
+        <span class="room-badge ${featured?'badge-gold':''}">${c.tipo}</span>
+      </div>
+      <div class="room-body">
+        <p class="room-type">${c.tipo}</p>
+        <h3 class="room-name">${c.nombre}</h3>
+        <p class="room-desc">${c.desc}</p>
+        <ul class="room-tags">
+          <li>👥 ${c.cap}</li>
+          <li>🍳 Cocina</li>
+          <li>🛋️ Sala</li>
+          <li>🚿 Baño privado</li>
+        </ul>
+        <a href="#reservar" class="btn ${featured?'btn-gold':'btn-dark'} room-btn">Consultar disponibilidad</a>
+      </div>`;
+    grid.appendChild(card);
+
+    const opt = document.createElement('option');
+    opt.value = c.nombre; opt.textContent = c.nombre;
+    selectHab.appendChild(opt);
+
+    const li = document.createElement('li');
+    li.textContent = c.nombre;
+    footerH.appendChild(li);
+  });
+
+  function mover(id, dir) {
+    const c = mostrar.find(c => c.id === id);
+    if (!c || c.fotos.length <= 1) return;
+    carIdx[id] = (carIdx[id] + dir + c.fotos.length) % c.fotos.length;
+    const sl = document.getElementById('cs-' + id);
+    const dots = document.getElementById('cd-' + id);
+    if (sl) sl.style.transform = `translateX(-${carIdx[id]*100}%)`;
+    if (dots) dots.querySelectorAll('span').forEach((d,i) => d.className = i===carIdx[id]?'activo':'');
+  }
+
+  // CONFIG
+  const wa = cfg.whatsapp || '593963560568';
+  const ig = cfg.instagram || 'https://www.instagram.com/';
+  document.getElementById('wa-link').href  = `https://wa.me/${wa}`;
+  document.getElementById('wa-float').href = `https://wa.me/${wa}`;
+  document.getElementById('ig-link').href  = ig;
+  document.getElementById('ig-footer').href = ig;
+  if (cfg.maps) document.getElementById('maps-link').href = cfg.maps;
+
+  // ANIMACIONES
+  const style = document.createElement('style');
+  style.textContent = `.visible{opacity:1!important;transform:translateY(0)!important;}`;
+  document.head.appendChild(style);
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);} });
+  },{threshold:0.12});
+  document.querySelectorAll('.room-card,.gallery-item,.section-header').forEach(el => {
+    el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity .6s ease,transform .6s ease';
+    observer.observe(el);
+  });
 }
-
-function autoCarrete(id, total) {
-  if (total > 1) carTimers[id] = setInterval(() => mover(id, 1), 3500);
-}
-
-// CONFIG
-const wa = cfg.whatsapp || '593963560568';
-const ig = cfg.instagram || 'https://www.instagram.com/';
-document.getElementById('wa-link').href  = `https://wa.me/${wa}`;
-document.getElementById('wa-float').href = `https://wa.me/${wa}`;
-document.getElementById('ig-link').href  = ig;
-document.getElementById('ig-footer').href = ig;
-if (cfg.maps) document.getElementById('maps-link').href = cfg.maps;
-
-// ANIMACIONES
-const style = document.createElement('style');
-style.textContent = `.visible{opacity:1!important;transform:translateY(0)!important;}`;
-document.head.appendChild(style);
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);} });
-},{threshold:0.12});
-document.querySelectorAll('.room-card,.gallery-item,.section-header').forEach(el => {
-  el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity .6s ease,transform .6s ease';
-  observer.observe(el);
-});
 </script>
 </body>
 </html>
