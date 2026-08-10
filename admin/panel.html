@@ -61,8 +61,14 @@
     .cargando-overlay.show{display:flex;}
     .spinner{width:40px;height:40px;border:4px solid rgba(255,255,255,.3);border-top:4px solid white;border-radius:50%;animation:spin 1s linear infinite;}
     @keyframes spin{to{transform:rotate(360deg);}}
-    .publicar-btn{width:100%;padding:16px;background:#1a6b45;color:white;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:20px;}
-    .publicar-btn:hover{background:#145438;}
+    .pub-box{background:#1a6b45;border-radius:14px;padding:22px;margin-bottom:20px;color:white;}
+    .pub-box h2{font-size:1rem;margin-bottom:6px;}
+    .pub-box p{font-size:.85rem;opacity:.85;margin-bottom:15px;}
+    .pub-btn{width:100%;padding:14px;background:white;color:#1a6b45;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;}
+    .pub-btn:hover{background:#e8f5ee;}
+    .pasos{background:white;border-radius:10px;padding:14px;margin-top:12px;color:#1c2128;}
+    .pasos p{font-size:.82rem;margin-bottom:6px;color:#555;}
+    .paso{background:#f8f8f8;border-radius:6px;padding:8px 12px;font-family:monospace;font-size:.82rem;margin-bottom:6px;color:#1a6b45;user-select:all;}
   </style>
 </head>
 <body>
@@ -79,12 +85,27 @@
 
 <div class="container">
 
+  <!-- PUBLICAR -->
+  <div class="pub-box">
+    <h2>Publicar cambios en el sitio web</h2>
+    <p>Cuando termines de subir fotos, presiona el boton para descargar el archivo y publicar.</p>
+    <button class="pub-btn" onclick="publicar()">Descargar y publicar</button>
+    <div class="pasos" id="pasos" style="display:none">
+      <p><strong>Archivo descargado. Ahora en el terminal de VS Code escribe:</strong></p>
+      <div class="paso">copy "$env:USERPROFILE\Downloads\data.json" data.json</div>
+      <div class="paso">git add .</div>
+      <div class="paso">git commit -m "actualizar"</div>
+      <div class="paso">git push</div>
+      <p style="margin-top:8px;color:#1a6b45;font-weight:bold">En 2 minutos aparece en el sitio.</p>
+    </div>
+  </div>
+
   <!-- PORTADA -->
   <div class="seccion">
     <div class="sec-title">Foto de Portada</div>
     <div class="sec-sub">Fondo grande detras de "Tu paraiso junto al Pacifico"</div>
-    <div class="foto-box" id="box-portada" onclick="document.getElementById('inp-portada').click()">
-      <div class="ph" id="ph-portada"><div class="ico">🌅</div><div class="txt">Clic para subir foto de portada</div></div>
+    <div class="foto-box" onclick="document.getElementById('inp-portada').click()">
+      <div class="ph" id="ph-portada"><div class="ico">🌅</div><div class="txt">Clic para subir foto</div></div>
       <img id="img-portada" style="display:none"/>
       <div class="hover-capa">Cambiar foto</div>
     </div>
@@ -96,7 +117,7 @@
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:15px;flex-wrap:wrap;gap:10px;">
       <div>
         <div class="sec-title">Cabanas y Habitaciones</div>
-        <div class="sec-sub">Sube varias fotos por cabana. Mantén Ctrl para elegir varias a la vez.</div>
+        <div class="sec-sub">Clic para subir fotos. Manten Ctrl para elegir varias a la vez.</div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="btn btn-v" onclick="nuevaCabana('Triple')">+ Triple</button>
@@ -162,30 +183,24 @@
     <button class="btn btn-v" onclick="guardarCfg()">Guardar info</button>
   </div>
 
-  <!-- PUBLICAR -->
-  <button class="publicar-btn" onclick="publicar()">
-    Publicar cambios en el sitio web
-  </button>
-
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
 const CLD_CLOUD  = 'yejx4eyi';
 const CLD_PRESET = 'el-remanso';
-const NETLIFY_HOOK = '';
 
 let cabanas = JSON.parse(localStorage.getItem('cabs_v4') || 'null') || [
-  {id:1,tipo:'Triple',      nombre:'Triple 1',      desc:'Perfecto para grupos de 3.',       cap:'3 personas', fotos:[]},
-  {id:2,tipo:'Triple',      nombre:'Triple 2',      desc:'Perfecto para grupos de 3.',       cap:'3 personas', fotos:[]},
-  {id:3,tipo:'Doble',       nombre:'Doble 1',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
-  {id:4,tipo:'Doble',       nombre:'Doble 2',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
-  {id:5,tipo:'Doble',       nombre:'Doble 3',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
-  {id:6,tipo:'Matrimonial', nombre:'Matrimonial 1', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
-  {id:7,tipo:'Matrimonial', nombre:'Matrimonial 2', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
-  {id:8,tipo:'Matrimonial', nombre:'Matrimonial 3', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
-  {id:9,tipo:'Matrimonial', nombre:'Matrimonial 4', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
-  {id:10,tipo:'Matrimonial',nombre:'Matrimonial 5', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
+  {id:1, tipo:'Triple',      nombre:'Triple 1',      desc:'Perfecto para grupos de 3.',       cap:'3 personas', fotos:[]},
+  {id:2, tipo:'Triple',      nombre:'Triple 2',      desc:'Perfecto para grupos de 3.',       cap:'3 personas', fotos:[]},
+  {id:3, tipo:'Doble',       nombre:'Doble 1',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
+  {id:4, tipo:'Doble',       nombre:'Doble 2',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
+  {id:5, tipo:'Doble',       nombre:'Doble 3',       desc:'Ideal para parejas o dos amigos.', cap:'2 personas', fotos:[]},
+  {id:6, tipo:'Matrimonial', nombre:'Matrimonial 1', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
+  {id:7, tipo:'Matrimonial', nombre:'Matrimonial 2', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
+  {id:8, tipo:'Matrimonial', nombre:'Matrimonial 3', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
+  {id:9, tipo:'Matrimonial', nombre:'Matrimonial 4', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
+  {id:10,tipo:'Matrimonial', nombre:'Matrimonial 5', desc:'Ambiente intimo con cama doble.',  cap:'2 personas', fotos:[]},
 ];
 let cfg  = JSON.parse(localStorage.getItem('cfg')    || '{}');
 let inst = JSON.parse(localStorage.getItem('inst_v2')|| '{}');
@@ -222,7 +237,7 @@ async function subirFotosCabana(id, input) {
   if (!files.length) return;
   const c = cabanas.find(c => c.id === id);
   if (!c) return;
-  mostrarCargando(`Subiendo ${files.length} foto(s)...`);
+  mostrarCargando('Subiendo ' + files.length + ' foto(s)...');
   try {
     for (const file of files) {
       const url = await subirCloudinary(file);
@@ -247,7 +262,7 @@ function moverCar(id, dir) {
   const sl = document.getElementById('sl-' + id);
   const dots = document.getElementById('dots-' + id);
   if (sl) sl.style.transform = `translateX(-${carIdx[id] * 100}%)`;
-  if (dots) dots.querySelectorAll('span').forEach((d,i) => d.className = i === carIdx[id] ? 'on' : '');
+  if (dots) dots.querySelectorAll('span').forEach((d,i) => d.className = i===carIdx[id]?'on':'');
 }
 
 function quitarFotoActual(id) {
@@ -295,7 +310,7 @@ function render() {
           <div class="car-sin" onclick="document.getElementById('fi-${c.id}').click()">
             <div class="ico">🏠</div>
             <div style="font-size:.8rem">Clic para subir fotos</div>
-            <div style="font-size:.72rem;color:#ccc">Mantén Ctrl para elegir varias</div>
+            <div style="font-size:.72rem;color:#ccc">Manten Ctrl para elegir varias</div>
           </div>
         `}
         <input type="file" id="fi-${c.id}" accept="image/*" multiple style="display:none"
@@ -318,8 +333,6 @@ function render() {
     if (img && inst[k]) {
       img.src = inst[k];
       img.style.display = 'block';
-      const ph = img.previousElementSibling;
-      if (ph && ph.classList.contains('ph')) ph.style.display = 'none';
     }
   });
   if (inst.portada) {
@@ -356,7 +369,22 @@ function guardarCabanas() {
 }
 
 function publicar() {
-  toast('Los cambios ya estan en el sitio automaticamente.');
+  const data = {
+    portada: inst.portada || null,
+    piscina: inst.piscina || null,
+    playa:   inst.playa   || null,
+    sala:    inst.sala    || null,
+    cocina:  inst.cocina  || null,
+    cabanas: cabanas,
+    cfg:     cfg
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'data.json';
+  a.click();
+  document.getElementById('pasos').style.display = 'block';
+  toast('Archivo descargado. Sigue los pasos.');
 }
 
 document.getElementById('wa').value   = cfg.whatsapp  || '593963560568';
