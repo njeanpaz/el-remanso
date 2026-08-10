@@ -1,101 +1,84 @@
 {
-  "portada": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786320225/rtgfbdvj7nx7hpy4gqkw.png",
-  "piscina": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786303056/noptcbisqmowcaxyd3me.webp",
-  "playa": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786303062/yeujbh79gjnsbqlrpla9.webp",
-  "sala": null,
-  "cocina": null,
+  "portada": null,
+  "instalaciones": [],
   "cabanas": [
     {
-      "id": 1,
-      "tipo": "Triple",
-      "nombre": "Triple 1",
-      "desc": "Perfecto para grupos de 3.",
-      "cap": "3 personas",
+      "id": 1786321425612,
+      "tipo": "Doble",
+      "nombre": "DEPARTAMENTO 4",
+      "desc": "✅ *Departamento DOBLE (Familiar) con capacidad para 5 PERSONAS* 🏖️\n\n*Equipado con:*\n• Aire acondicionado central❄️\n• TV local 📺\n• Baño privado 🚿\n• Refrigeradora personal 🧊\n• Acceso a internet Wi-Fi 👨🏻‍💻\n\n\n✅ *Organización de los dormitorios*\n\n*Habitaciones principal (1 cama):*\n• Cama matrimonial (de 2 plazas)\n*Segunda habitación (2 camas)*\n• 1 Litera (2 camas de 1 ½ plaza)\n• 1 cama de 1 ½ plaza",
+      "cap": "5 personas",
       "fotos": [
-        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786303032/ikemxucstk6meed4ijqn.webp"
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786321470/y02xagjazustpkv6xpl9.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786321476/g48laps1miojpni7yqcj.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786321482/l1ibrttarmsswezcyr5e.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786321487/jgwssxmejfxsfwq4wlsv.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786321495/omvkozoqtrhmjjepf2w1.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786321500/olmwxt9ordvjddpeuz4o.jpg"
       ]
     },
     {
-      "id": 2,
-      "tipo": "Triple",
-      "nombre": "Triple 2",
-      "desc": "Perfecto para grupos de 3.",
-      "cap": "3 personas",
+      "id": 1786325268138,
+      "tipo": "Doble",
+      "nombre": "DEPARTAMENTO CABAÑA 10",
+      "desc": "✅ *Departamento DOBLE (Familiar) con capacidad para 6 PERSONAS* 🏖️\n\n*Equipado con:*\n• Aire acondicionado central❄️\n• TV local 📺\n• Baño privado 🚿\n• Refrigeradora personal 🧊\n• Acceso a internet Wi-Fi 👨🏻‍💻\n\n\n✅ *Organización de los dormitorios*\n\n*Habitaciones principal (1 cama):*\n• Cama matrimonial (de 2 plazas)\n*Segunda habitación (2 camas)*\n• 2 Literas (4 camas de 1 ½ plaza",
+      "cap": "6 personas",
       "fotos": [
-        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786303046/njb6sgmddzlopfycev4q.webp"
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325488/ur7f3gpmzcnbcqh204tc.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325494/pltlyyi1cqjlnp6isdqe.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325498/lyjsybwssnrq5f5zztiu.jpg"
       ]
     },
     {
-      "id": 3,
+      "id": 1786325297223,
       "tipo": "Doble",
-      "nombre": "Doble 1",
-      "desc": "Ideal para parejas o dos amigos.",
-      "cap": "2 personas",
-      "fotos": []
+      "nombre": "DEPARTAMENTO 11",
+      "desc": "✅ *Departamento DOBLE (Familiar) con capacidad para 6 PERSONAS* 🏖️\n\n*Equipado con:*\n• Aire acondicionado central❄️\n• TV local 📺\n• Baño privado 🚿\n• Refrigeradora personal 🧊\n• Acceso a internet Wi-Fi 👨🏻‍💻\n\n\n✅ *Organización de los dormitorios*\n\n*Habitaciones principal (1 cama):*\n• Cama matrimonial (de 2 plazas)\n*Segunda habitación (2 camas)*\n• 2 Literas (4 camas de 1 ½ plaza",
+      "cap": "6 personas",
+      "fotos": [
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325540/ozucfqq7shjr0tidxaj2.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325546/dj30pcmj0kmomahqicnt.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325551/yxzuk8w63kqluo0mrr9y.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325556/wfs8ngzufnec1ausrqhq.jpg"
+      ]
     },
     {
-      "id": 4,
-      "tipo": "Doble",
-      "nombre": "Doble 2",
-      "desc": "Ideal para parejas o dos amigos.",
-      "cap": "2 personas",
-      "fotos": []
-    },
-    {
-      "id": 5,
-      "tipo": "Doble",
-      "nombre": "Doble 3",
-      "desc": "Ideal para parejas o dos amigos.",
-      "cap": "2 personas",
-      "fotos": []
-    },
-    {
-      "id": 6,
+      "id": 1786325574956,
       "tipo": "Matrimonial",
-      "nombre": "Matrimonial 1",
-      "desc": "Ambiente intimo con cama doble.",
-      "cap": "2 personas",
-      "fotos": []
-    },
-    {
-      "id": 7,
-      "tipo": "Matrimonial",
-      "nombre": "Matrimonial 2",
-      "desc": "Ambiente intimo con cama doble.",
-      "cap": "2 personas",
-      "fotos": []
-    },
-    {
-      "id": 8,
-      "tipo": "Matrimonial",
-      "nombre": "Matrimonial 3",
-      "desc": "Ambiente intimo con cama doble.",
-      "cap": "2 personas",
-      "fotos": []
-    },
-    {
-      "id": 9,
-      "tipo": "Matrimonial",
-      "nombre": "Matrimonial 4",
-      "desc": "Ambiente intimo con cama doble.",
-      "cap": "2 personas",
-      "fotos": []
-    },
-    {
-      "id": 10,
-      "tipo": "Matrimonial",
-      "nombre": "Matrimonial 5",
-      "desc": "Ambiente intimo con cama doble.",
-      "cap": "2 personas",
-      "fotos": []
-    },
-    {
-      "id": 1786303494618,
-      "tipo": "Doble",
-      "nombre": "",
+      "nombre": "CABAÑA 6",
       "desc": "Descripcion aqui.",
       "cap": "2 personas",
-      "fotos": []
+      "fotos": [
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325673/ojgorriyfsdc3lck3zgm.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325678/hgdzbtgbs2bleeoodhhn.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325682/jye50v9jsdfyhjvygsqj.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325685/vw7wgvbtsuy7werelenh.jpg"
+      ]
+    },
+    {
+      "id": 1786325740489,
+      "tipo": "Matrimonial",
+      "nombre": "CABAÑA 8",
+      "desc": "Descripcion aqui.",
+      "cap": "2 personas",
+      "fotos": [
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325807/amhoathbeldw97omva39.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325813/jnpcthghvagznaww1lo6.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325817/qkforhsc5b9cegh5u25d.jpg"
+      ]
+    },
+    {
+      "id": 1786325879392,
+      "tipo": "Matrimonial",
+      "nombre": "CABAÑA 12",
+      "desc": "Descripcion aqui.",
+      "cap": "2 personas",
+      "fotos": [
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325971/aa1dpkoz3ggtf8r4ie8n.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325978/fl6hm95drscxyr06yfla.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325982/x5fg97tw7adczkgpgpvp.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786325985/s4047e6lxgaou2jymizi.jpg"
+      ]
     }
   ],
   "cfg": {
