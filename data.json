@@ -1,5 +1,5 @@
 {
-  "portada": "https://res.cloudinary.com/yejx4eyi/image/upload/Instalaciones/IMG_7972.jpg",
+  "portada": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7972.jpg",
   "cabanas": [
     {
       "id": 10,
@@ -8,9 +8,9 @@
       "desc": "Amplia cabaña para grupos. Cocina completa, sala de estar y baño privado.",
       "cap": "3 personas",
       "fotos": [
-        "https://res.cloudinary.com/yejx4eyi/image/upload/cabana-10/IMG_7928.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/cabana-10/IMG_7929.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/cabana-10/IMG_7931.jpg"
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7928.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7929.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7931.jpg"
       ]
     },
     {
@@ -20,10 +20,10 @@
       "desc": "Cabaña espaciosa ideal para familias. Cocina completa, sala y baño privado.",
       "cap": "3 personas",
       "fotos": [
-        "https://res.cloudinary.com/yejx4eyi/image/upload/cabana-11/IMG_7958.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/cabana-11/IMG_7959.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/cabana-11/IMG_7960.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/cabana-11/IMG_7961.jpg"
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7958.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7959.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7960.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7961.jpg"
       ]
     },
     {
@@ -33,13 +33,13 @@
       "desc": "Cómodo departamento para parejas o amigos. Cocina, sala y baño privado.",
       "cap": "2 personas",
       "fotos": [
-        "https://res.cloudinary.com/yejx4eyi/image/upload/doble-4/IMG_7932.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/doble-4/IMG_7933.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/doble-4/IMG_7934.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/doble-4/IMG_7935.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/doble-4/IMG_7936.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/doble-4/IMG_7937.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/doble-4/IMG_7938.jpg"
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7932.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7933.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7934.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7935.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7936.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7937.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7938.jpg"
       ]
     },
     {
@@ -47,24 +47,24 @@
       "tipo": "Matrimonial",
       "nombre": "Habitación Matrimonial 6",
       "desc": "Ambiente íntimo y acogedor. Cocina, sala y baño privado incluidos.",
-      "cap": "2 personas",
+      "cap": "2 personas", 
       "fotos": [
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-6/IMG_7962.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-6/IMG_7963.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-6/IMG_7964.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-6/IMG_7965.jpg"
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7962.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7963.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7964.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7965.jpg"
       ]
     },
-    {
+    {  
       "id": 8,
       "tipo": "Matrimonial",
       "nombre": "Habitación Matrimonial 8",
       "desc": "Espacio romántico con todo lo necesario. Cocina, sala y baño privado.",
       "cap": "2 personas",
       "fotos": [
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-8/IMG_7966.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-8/IMG_7967.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-8/IMG_7968.jpg"
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7966.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7967.jpg", 
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7968.jpg"
       ]
     },
     {
@@ -74,24 +74,26 @@
       "desc": "Habitación acogedora para una estadía perfecta. Cocina, sala y baño privado.",
       "cap": "2 personas",
       "fotos": [
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-12/IMG_7947.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-12/IMG_7948.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-12/IMG_7949.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/matrimonial-12/IMG_7950.jpg"
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7947.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7948.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7949.jpg",
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7950.jpg"  
       ]
     }
   ],
   "instalaciones": [
-    {"nombre": "Piscina", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/Instalaciones/IMG_7972.jpg"},
-    {"nombre": "Área social", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/Instalaciones/IMG_7973.jpg"},
-    {"nombre": "Jardín", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/Instalaciones/IMG_7974.jpg"},
-    {"nombre": "Acceso a la playa", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/Instalaciones/IMG_7975.jpg"},
-    {"nombre": "Zona de descanso", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/Instalaciones/IMG_7976.jpg"},
-    {"nombre": "Exterior", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/Instalaciones/IMG_7977.jpg"}
+    {"nombre": "Piscina", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7972.jpg"},
+    {"nombre": "Área social", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7973.jpg"},
+    {"nombre": "Jardín", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7974.jpg"},
+    {"nombre": "Acceso a la playa", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7975.jpg"},  
+    {"nombre": "Zona de descanso", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7976.jpg"},
+    {"nombre": "Exterior", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7977.jpg"}
   ],
   "cfg": {
-    "whatsapp": "593963560568",
+    "whatsapp": "593963560568",  
     "instagram": "https://www.instagram.com/",
     "maps": "https://www.google.com/maps/search/Tonsupa+Esmeraldas+Ecuador"
   }
 }
+EOF  
+echo "Listo"
