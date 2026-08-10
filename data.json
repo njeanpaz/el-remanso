@@ -1,0 +1,106 @@
+{
+  "portada": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786320225/rtgfbdvj7nx7hpy4gqkw.png",
+  "piscina": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786303056/noptcbisqmowcaxyd3me.webp",
+  "playa": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786303062/yeujbh79gjnsbqlrpla9.webp",
+  "sala": null,
+  "cocina": null,
+  "cabanas": [
+    {
+      "id": 1,
+      "tipo": "Triple",
+      "nombre": "Triple 1",
+      "desc": "Perfecto para grupos de 3.",
+      "cap": "3 personas",
+      "fotos": [
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786303032/ikemxucstk6meed4ijqn.webp"
+      ]
+    },
+    {
+      "id": 2,
+      "tipo": "Triple",
+      "nombre": "Triple 2",
+      "desc": "Perfecto para grupos de 3.",
+      "cap": "3 personas",
+      "fotos": [
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786303046/njb6sgmddzlopfycev4q.webp"
+      ]
+    },
+    {
+      "id": 3,
+      "tipo": "Doble",
+      "nombre": "Doble 1",
+      "desc": "Ideal para parejas o dos amigos.",
+      "cap": "2 personas",
+      "fotos": []
+    },
+    {
+      "id": 4,
+      "tipo": "Doble",
+      "nombre": "Doble 2",
+      "desc": "Ideal para parejas o dos amigos.",
+      "cap": "2 personas",
+      "fotos": []
+    },
+    {
+      "id": 5,
+      "tipo": "Doble",
+      "nombre": "Doble 3",
+      "desc": "Ideal para parejas o dos amigos.",
+      "cap": "2 personas",
+      "fotos": []
+    },
+    {
+      "id": 6,
+      "tipo": "Matrimonial",
+      "nombre": "Matrimonial 1",
+      "desc": "Ambiente intimo con cama doble.",
+      "cap": "2 personas",
+      "fotos": []
+    },
+    {
+      "id": 7,
+      "tipo": "Matrimonial",
+      "nombre": "Matrimonial 2",
+      "desc": "Ambiente intimo con cama doble.",
+      "cap": "2 personas",
+      "fotos": []
+    },
+    {
+      "id": 8,
+      "tipo": "Matrimonial",
+      "nombre": "Matrimonial 3",
+      "desc": "Ambiente intimo con cama doble.",
+      "cap": "2 personas",
+      "fotos": []
+    },
+    {
+      "id": 9,
+      "tipo": "Matrimonial",
+      "nombre": "Matrimonial 4",
+      "desc": "Ambiente intimo con cama doble.",
+      "cap": "2 personas",
+      "fotos": []
+    },
+    {
+      "id": 10,
+      "tipo": "Matrimonial",
+      "nombre": "Matrimonial 5",
+      "desc": "Ambiente intimo con cama doble.",
+      "cap": "2 personas",
+      "fotos": []
+    },
+    {
+      "id": 1786303494618,
+      "tipo": "Doble",
+      "nombre": "",
+      "desc": "Descripcion aqui.",
+      "cap": "2 personas",
+      "fotos": []
+    }
+  ],
+  "cfg": {
+    "whatsapp": "593963560568",
+    "instagram": "",
+    "maps": ""
+  }
+}
