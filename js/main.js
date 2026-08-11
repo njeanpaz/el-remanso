@@ -2,7 +2,7 @@
 // NÚMERO DE WHATSAPP DEL HOSTAL
 // Solo cambia el número aquí y funciona en todo el sitio
 // ================================================
-const WHATSAPP_NUMBER = '593963560568';
+const WHATSAPP_NUMBER = '593960851813';
 
 // ── NAVBAR: se vuelve blanco al hacer scroll ────
 const navbar = document.getElementById('navbar');

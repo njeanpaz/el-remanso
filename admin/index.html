@@ -1,189 +1,971 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin – El Remanso</title>
+  <title>El Remanso – Hostería Turística Tonsupa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/components.css"/>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: #f0f4f0; }
-    .topbar { background: #1a6b45; color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; }
-    .topbar h1 { font-size: 1.2rem; }
-    .topbar a { color: white; text-decoration: none; font-size: 0.9rem; }
-    .container { max-width: 960px; margin: 30px auto; padding: 0 20px; }
-    .seccion { background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-    .seccion h2 { color: #1a6b45; margin-bottom: 20px; font-size: 1.1rem; }
-    .hab-card { border: 2px solid #e0e0e0; border-radius: 12px; margin-bottom: 25px; overflow: hidden; }
-    .hab-header { background: #f8f8f8; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; }
-    .hab-header span { font-weight: bold; color: #1a6b45; font-size: 1rem; }
-    .carrete { padding: 15px; }
-    .carrete-label { font-size: 0.8rem; color: #888; margin-bottom: 10px; }
-    .fotos-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; min-height: 140px; align-items: center; }
-    .foto-thumb { position: relative; flex-shrink: 0; width: 160px; height: 120px; border-radius: 8px; overflow: hidden; border: 2px solid #e0e0e0; }
-    .foto-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .foto-thumb .x { position: absolute; top: 4px; right: 4px; background: rgba(220,38,38,0.9); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 0.85rem; }
-    .foto-thumb .lbl { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.55); color: white; font-size: 0.7rem; padding: 3px 6px; text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-    .add-btn { flex-shrink: 0; width: 130px; height: 120px; border: 2px dashed #1a6b45; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: #1a6b45; font-size: 0.82rem; gap: 6px; background: #f0faf5; }
-    .add-btn:hover { background: #e0f5eb; }
-    .hab-info { padding: 0 15px 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .campo { display: flex; flex-direction: column; gap: 3px; }
-    .campo.full { grid-column: 1/-1; }
-    .campo label { font-size: 0.75rem; color: #888; }
-    .campo input, .campo textarea { border: 1.5px solid #e0e0e0; border-radius: 6px; padding: 7px 10px; font-size: 0.88rem; font-family: inherit; }
-    .campo input:focus, .campo textarea:focus { outline: none; border-color: #1a6b45; }
-    .campo textarea { resize: none; height: 65px; }
-    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
-    .btn-verde { background: #1a6b45; color: white; }
-    .btn-gris { background: #e0e0e0; color: #333; }
-    .btn-rojo { background: #dc2626; color: white; font-size: 0.82rem; padding: 7px 14px; border-radius: 6px; border: none; cursor: pointer; }
-    .campo-g { margin-bottom: 15px; }
-    .campo-g label { display: block; font-size: 0.85rem; color: #555; margin-bottom: 5px; }
-    .campo-g input { width: 100%; border: 1.5px solid #e0e0e0; border-radius: 8px; padding: 10px 12px; font-size: 0.95rem; }
-    .campo-g input:focus { outline: none; border-color: #1a6b45; }
-    .portada-box { width:100%; height:200px; border-radius:10px; overflow:hidden; background:#f0f0f0; margin-bottom:15px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:2px dashed #1a6b45; }
-    .portada-box img { width:100%; height:100%; object-fit:cover; }
-    .instrucciones { background: #fffbeb; border: 1.5px solid #f59e0b; border-radius: 10px; padding: 15px 20px; font-size: 0.88rem; line-height: 1.8; }
-    pre { background: #1e293b; color: #e2e8f0; padding: 10px 14px; border-radius: 6px; margin: 6px 0; font-size: 0.85rem; }
-    #msg { color: #1a6b45; font-size: 0.9rem; display: none; margin-left: 10px; }
+    .hero{
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg,#0F3554,#1E8449);
+      z-index:0;
+    }
+
+    .hero-bg img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:0.55;
+      position:absolute;
+    }
+
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        to bottom,
+        rgba(10,31,46,.6) 0%,
+        rgba(10,31,46,.3) 50%,
+        rgba(10,31,46,.7) 100%
+      );
+      z-index:1;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+    }
+
+    .carrete-wrap{
+      position:relative;
+      width:100%;
+      height:260px;
+      overflow:hidden;
+      border-radius:12px 12px 0 0;
+      background:#1a1a1a;
+    }
+
+    .carrete-slides{
+      display:flex;
+      height:100%;
+      transition:transform 0.4s ease;
+    }
+
+    .carrete-slides img{
+      flex-shrink:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .carrete-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(0,0,0,.45);
+      color:white;
+      border:none;
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:1.1rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:5;
+    }
+
+    .carrete-btn.prev{
+      left:10px;
+    }
+
+    .carrete-btn.next{
+      right:10px;
+    }
+
+    .carrete-dots{
+      position:absolute;
+      bottom:8px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      gap:5px;
+      z-index:5;
+    }
+
+    .carrete-dots span{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:rgba(255,255,255,.5);
+    }
+
+    .carrete-dots span.activo{
+      background:white;
+    }
+
+    .sin-foto{
+      width:100%;
+      height:260px;
+      background:#f0f0f0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      color:#999;
+      border-radius:12px 12px 0 0;
+    }
+
+    /* DESCRIPCIONES COMPLETAS */
+    .room-desc{
+      min-height:90px;
+      height:auto;
+      max-height:none;
+      overflow:visible;
+      display:block;
+      -webkit-line-clamp:unset;
+      line-clamp:unset;
+    }
   </style>
 </head>
-<body>
-<div class="topbar">
-  <h1>🌴 El Remanso — Panel Admin</h1>
-  <a href="https://elremanso-tonsupa.netlify.app" target="_blank">Ver sitio →</a>
-</div>
-<div class="container">
 
-  <!-- PORTADA -->
-  <div class="seccion">
-    <h2>🖼️ Foto de Portada</h2>
-    <p style="font-size:0.85rem;color:#888;margin-bottom:15px">Fondo grande detrás de "Tu paraíso junto al Pacífico"</p>
-    <div class="portada-box" id="portada-box" onclick="document.getElementById('portada-file').click()">
-      <div id="portada-placeholder" style="text-align:center;color:#888">
-        <div style="font-size:2.5rem">🌅</div>
-        <div style="margin-top:8px">Clic para subir foto de portada</div>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#inicio" class="nav-logo">
+      <span class="logo-text">El <em>Remanso</em></span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#habitaciones">Habitaciones</a></li>
+      <li><a href="#instalaciones">Instalaciones</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+      <li><a href="#reservar" class="nav-btn">Reservar</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="hero-bg" id="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <span class="hero-badge">🌴 Tonsupa · Ecuador</span>
+
+    <h1 class="hero-title">
+      Tu paraíso<br/>
+      <em>junto al Pacífico</em>
+    </h1>
+
+    <p class="hero-sub">
+      Departamentos completos con cocina, sala y baño privado.<br/>
+      A solo 30 metros del mar.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#reservar" class="btn btn-gold">Reservar ahora</a>
+      <a href="#habitaciones" class="btn btn-ghost">Ver habitaciones</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span></span>
+    <p>Desliza</p>
+  </div>
+</section>
+
+<div class="features-bar">
+  <div class="feature">
+    <span class="feat-icon">🏖️</span>
+    <span>30 m de la playa</span>
+  </div>
+
+  <div class="feat-divider"></div>
+
+  <div class="feature">
+    <span class="feat-icon">🏊</span>
+    <span>Piscina privada</span>
+  </div>
+
+  <div class="feat-divider"></div>
+
+  <div class="feature">
+    <span class="feat-icon">🍳</span>
+    <span>Cocina equipada</span>
+  </div>
+
+  <div class="feat-divider"></div>
+
+  <div class="feature">
+    <span class="feat-icon">📶</span>
+    <span>Wi-Fi incluido</span>
+  </div>
+
+  <div class="feat-divider"></div>
+
+  <div class="feature">
+    <span class="feat-icon">🅿️</span>
+    <span>Parqueadero</span>
+  </div>
+</div>
+
+<section class="section rooms-section" id="habitaciones">
+  <div class="section-header">
+    <span class="eyebrow">Nuestras opciones</span>
+    <h2 class="section-title">Habitaciones & Departamentos</h2>
+    <p class="section-desc">
+      Cada espacio es una mini-casita independiente con cocina, sala,
+      habitación y baño privado.
+    </p>
+  </div>
+
+  <div class="rooms-grid" id="rooms-grid"></div>
+</section>
+
+<section class="section instalaciones-section" id="instalaciones">
+  <div class="section-header">
+    <span class="eyebrow">Nuestro espacio</span>
+    <h2 class="section-title">Instalaciones</h2>
+    <p class="section-desc">
+      Piscina privada, áreas sociales y a solo 30 metros de la playa de Tonsupa.
+    </p>
+  </div>
+
+  <div class="gallery-grid" id="gallery-grid"></div>
+</section>
+
+<section class="section location-section" id="ubicacion">
+  <div class="location-inner">
+
+    <div class="location-info">
+      <span class="eyebrow eyebrow-light">¿Dónde estamos?</span>
+
+      <h2 class="section-title title-light">
+        Tonsupa, Esmeraldas
+      </h2>
+
+      <p class="section-desc desc-light">
+        Ubicados en uno de los destinos de playa más populares de Ecuador.
+      </p>
+
+      <ul class="location-list">
+        <li>
+          <span class="loc-icon">📍</span>
+          <div>
+            <strong>Tonsupa, Esmeraldas – Ecuador</strong>
+            <span>Cerca de Atacames</span>
+          </div>
+        </li>
+
+        <li>
+          <span class="loc-icon">🌊</span>
+          <div>
+            <strong>30 metros del mar</strong>
+            <span>Sal y pisa arena en menos de un minuto</span>
+          </div>
+        </li>
+
+        <li>
+          <span class="loc-icon">🏊</span>
+          <div>
+            <strong>Piscina privada</strong>
+            <span>Áreas sociales para relajarte con tu familia</span>
+          </div>
+        </li>
+      </ul>
+
+      <a
+        id="maps-link"
+        href="https://maps.app.goo.gl/Hk12MXrNQD2WxJwTA"
+        target="_blank"
+        class="btn btn-gold"
+      >
+        Ver en Google Maps
+      </a>
+    </div>
+
+    <div class="location-map">
+      <div class="map-embed">
+        <span class="map-pin">📍</span>
+        <p>Hostería El Remanso</p>
+        <small>Tonsupa, Esmeraldas, Ecuador</small>
       </div>
     </div>
-    <input type="file" id="portada-file" accept="image/*" style="display:none" onchange="subirPortada(this)"/>
-    <button class="btn btn-verde" onclick="document.getElementById('portada-file').click()">📤 Cambiar foto de portada</button>
-  </div>
 
-  <!-- HABITACIONES -->
-  <div class="seccion">
-    <h2>🛏️ Habitaciones — Fotos y Textos</h2>
-    <div id="lista"></div>
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px">
-      <button class="btn btn-verde" onclick="guardar()">💾 Guardar cambios</button>
-      <button class="btn btn-gris" onclick="agregar()">➕ Agregar habitación</button>
-      <span id="msg"></span>
+  </div>
+</section>
+
+<section class="section reserve-section" id="reservar">
+  <div class="reserve-inner">
+
+    <div class="reserve-header">
+      <span class="eyebrow">Reservas</span>
+
+      <h2 class="section-title">
+        ¿Listo para escapar?
+      </h2>
+
+      <p class="section-desc">
+        Llena el formulario y tu solicitud llegará directo al WhatsApp del hostal.
+      </p>
+    </div>
+
+    <div class="reserve-form-wrap">
+      <div class="reserve-form">
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label>Tu nombre</label>
+            <input
+              type="text"
+              id="nombre"
+              placeholder="Nombre completo"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Habitación</label>
+
+            <select id="habitacion">
+              <option value="">Selecciona...</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label>Llegada</label>
+            <input type="date" id="llegada"/>
+          </div>
+
+          <div class="form-group">
+            <label>Salida</label>
+            <input type="date" id="salida"/>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label>Personas</label>
+            <input
+              type="number"
+              id="personas"
+              min="1"
+              max="10"
+              placeholder="2"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Tu WhatsApp</label>
+            <input
+              type="tel"
+              id="telefono"
+              placeholder="+593 9..."
+            />
+          </div>
+
+        </div>
+
+        <div class="form-group form-full">
+          <label>
+            Mensaje
+            <span class="optional">(opcional)</span>
+          </label>
+
+          <textarea id="mensaje" rows="3"></textarea>
+        </div>
+
+        <button class="btn btn-whatsapp" id="btnReservar">
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            width="22"
+            height="22"
+          >
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.198.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+
+          Enviar reserva por WhatsApp
+        </button>
+
+        <p class="form-note">
+          📩 Tu mensaje irá directo al propietario de El Remanso
+        </p>
+
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- INFO GENERAL -->
-  <div class="seccion">
-    <h2>⚙️ Información General</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px">
-      <div class="campo-g"><label>WhatsApp</label><input type="tel" id="wa" placeholder="593963560568"/></div>
-      <div class="campo-g"><label>Instagram</label><input type="url" id="ig" placeholder="https://instagram.com/elremanso"/></div>
-      <div class="campo-g" style="grid-column:1/-1"><label>Google Maps (link)</label><input type="url" id="maps" placeholder="https://maps.google.com/?q=..."/></div>
+<section class="section instagram-section">
+  <div class="instagram-inner">
+    <span class="eyebrow">Síguenos</span>
+
+    <h2 class="section-title" id="ig-titulo">
+      @elremanso_tonsupa
+    </h2>
+
+    <a
+      id="ig-link"
+      href="https://www.instagram.com/"
+      target="_blank"
+      class="btn btn-dark ig-btn"
+    >
+      Ver en Instagram
+    </a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <span class="logo-text footer-logo">
+        El <em>Remanso</em>
+      </span>
+
+      <p>
+        Hostería Turística en Tonsupa, Ecuador.
+      </p>
     </div>
-    <button class="btn btn-verde" onclick="guardarCfg()">💾 Guardar info</button>
+
+    <div class="footer-col">
+      <h4>Habitaciones</h4>
+      <ul id="footer-habs"></ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contacto</h4>
+
+      <ul>
+        <li>
+          <a id="wa-link" href="https://wa.me/593960851813">
+            📱 WhatsApp
+          </a>
+        </li>
+
+        <li>📍 Tonsupa, Esmeraldas</li>
+
+        <li>
+          <a
+            id="ig-footer"
+            href="https://www.instagram.com/"
+            target="_blank"
+          >
+            📸 Instagram
+          </a>
+        </li>
+      </ul>
+    </div>
+
   </div>
 
-  <!-- INSTRUCCIONES -->
-  <div class="instrucciones">
-    <strong>🚀 Para publicar en el sitio web:</strong><br/>
-    <pre>git add .</pre>
-    <pre>git commit -m "actualizar fotos"</pre>
-    <pre>git push</pre>
-    En 2 minutos aparece en el sitio ✅
+  <div class="footer-bottom">
+    <span>
+      © 2026 El Remanso – Hostería Turística Tonsupa
+    </span>
   </div>
-</div>
+</footer>
+
+<a
+  id="wa-float"
+  href="https://wa.me/593960851813"
+  target="_blank"
+  class="wa-float"
+>
+  <svg
+    viewBox="0 0 24 24"
+    fill="white"
+    width="30"
+    height="30"
+  >
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script src="js/main.js"></script>
 
 <script>
-let habs = JSON.parse(localStorage.getItem('habs_v2')||'null') || [
-  {id:1,nombre:'Departamento Triple',tipo:'Departamento',desc:'Perfecto para grupos de 3. Literas cómodas, cocina equipada, sala y baño privado.',cap:'3 personas',fotos:[]},
-  {id:2,nombre:'Departamento Doble',tipo:'Departamento',desc:'Ideal para parejas o dos amigos. Mini cocina equipada, sala acogedora y baño privado.',cap:'2 personas',fotos:[]},
-  {id:3,nombre:'Habitación Matrimonial',tipo:'Habitación',desc:'Ambiente íntimo con cama matrimonial, decoración tropical y baño privado completo.',cap:'2 personas',fotos:[]},
-];
-let cfg = JSON.parse(localStorage.getItem('cfg')||'{}');
+fetch('data.json?v=' + Date.now())
+  .then(r => r.json())
+  .then(data => iniciar(data))
+  .catch(() => iniciar({}));
 
-// PORTADA
-const portadaGuardada = localStorage.getItem('portada');
-if(portadaGuardada){
-  document.getElementById('portada-box').innerHTML=`<img src="${portadaGuardada}"/>`;
-}
+function iniciar(data) {
 
-function subirPortada(input){
-  const file=input.files[0]; if(!file)return;
-  const r=new FileReader();
-  r.onload=e=>{
-    localStorage.setItem('portada',e.target.result);
-    document.getElementById('portada-box').innerHTML=`<img src="${e.target.result}"/>`;
-    msg('✅ ¡Foto de portada guardada!');
-  };
-  r.readAsDataURL(file);
-}
+  const cabanas = data.cabanas || [];
+  const instalaciones = data.instalaciones || [];
+  const cfg = data.cfg || {};
 
-function render(){
-  document.getElementById('lista').innerHTML = habs.map(h=>`
-    <div class="hab-card">
-      <div class="hab-header">
-        <span>🏠 ${h.nombre}</span>
-        <button class="btn-rojo" onclick="borrar(${h.id})">🗑️ Eliminar</button>
-      </div>
-      <div class="carrete">
-        <div class="carrete-label">📸 ${h.fotos.length} foto(s) — baño, sala, dormitorio, etc.</div>
-        <div class="fotos-scroll">
-          ${h.fotos.map((f,i)=>`
-            <div class="foto-thumb">
-              <img src="${f.data}"/>
-              <button class="x" onclick="quitarFoto(${h.id},${i})">✕</button>
-              <div class="lbl">${f.nombre}</div>
-            </div>
-          `).join('')}
-          <div class="add-btn" onclick="document.getElementById('fi${h.id}').click()">
-            <div style="font-size:1.8rem">📤</div>
-            <div>Agregar fotos</div>
-            <div style="font-size:0.72rem">Varias a la vez</div>
+  const carIdx = {};
+  const carTimers = {};
+
+  // PORTADA
+  const heroBg = document.getElementById('hero-bg');
+
+  if (data.portada) {
+    const img = document.createElement('img');
+    img.src = data.portada;
+    heroBg.appendChild(img);
+  }
+
+  // INSTALACIONES
+  const gallery = document.getElementById('gallery-grid');
+
+  if (instalaciones.length > 0) {
+
+    instalaciones.forEach((inst, i) => {
+
+      if (!inst.foto) return;
+
+      const div = document.createElement('div');
+
+      div.className =
+        'gallery-item' +
+        (i === 0 ? ' gallery-big' : '');
+
+      div.innerHTML =
+        `<img src="${inst.foto}" alt="${inst.nombre}"/>
+         <div class="gallery-label">${inst.nombre}</div>`;
+
+      gallery.appendChild(div);
+    });
+  }
+
+  // HABITACIONES
+  const grid = document.getElementById('rooms-grid');
+  const selectHab = document.getElementById('habitacion');
+  const footerH = document.getElementById('footer-habs');
+
+  const mostrar =
+    cabanas.length > 0
+      ? cabanas
+      : [
+          {
+            id:1,
+            tipo:'Triple',
+            nombre:'Departamento Triple',
+            desc:'Perfecto para grupos de 3.',
+            cap:'3 personas',
+            fotos:[]
+          },
+          {
+            id:2,
+            tipo:'Doble',
+            nombre:'Departamento Doble',
+            desc:'Ideal para parejas.',
+            cap:'2 personas',
+            fotos:[]
+          },
+          {
+            id:3,
+            tipo:'Matrimonial',
+            nombre:'Habitación Matrimonial',
+            desc:'Ambiente íntimo.',
+            cap:'2 personas',
+            fotos:[]
+          }
+        ];
+
+  mostrar.forEach((c, idx) => {
+
+    carIdx[c.id] = 0;
+
+    const card = document.createElement('div');
+
+    const featured =
+      idx === Math.floor(mostrar.length / 2);
+
+    card.className =
+      'room-card' +
+      (featured ? ' room-featured' : '');
+
+    let fotosHTML = '';
+
+    if (c.fotos && c.fotos.length > 0) {
+
+      fotosHTML = `
+        <div class="carrete-wrap">
+
+          <div
+            class="carrete-slides"
+            id="cs-${c.id}"
+          >
+            ${c.fotos
+              .map(
+                f =>
+                  `<img src="${f}" alt="${c.nombre}"/>`
+              )
+              .join('')}
           </div>
-          <input type="file" id="fi${h.id}" accept="image/*" multiple onchange="subirFotos(${h.id},this)" style="display:none"/>
+
+          ${
+            c.fotos.length > 1
+              ? `
+                <button
+                  class="carrete-btn prev"
+                  onclick="mover(${c.id},-1)"
+                >
+                  &#8249;
+                </button>
+
+                <button
+                  class="carrete-btn next"
+                  onclick="mover(${c.id},1)"
+                >
+                  &#8250;
+                </button>
+
+                <div
+                  class="carrete-dots"
+                  id="cd-${c.id}"
+                >
+                  ${c.fotos
+                    .map(
+                      (_,i) =>
+                        `<span class="${i===0?'activo':''}"></span>`
+                    )
+                    .join('')}
+                </div>
+              `
+              : ''
+          }
+
         </div>
-      </div>
-      <div class="hab-info">
-        <div class="campo"><label>Nombre</label><input value="${h.nombre}" oninput="upd(${h.id},'nombre',this.value)"/></div>
-        <div class="campo"><label>Tipo</label><input value="${h.tipo}" oninput="upd(${h.id},'tipo',this.value)"/></div>
-        <div class="campo full"><label>Descripción</label><textarea oninput="upd(${h.id},'desc',this.value)">${h.desc}</textarea></div>
-        <div class="campo"><label>Capacidad</label><input value="${h.cap}" oninput="upd(${h.id},'cap',this.value)"/></div>
-      </div>
-    </div>
-  `).join('');
-  document.getElementById('wa').value=cfg.whatsapp||'593963560568';
-  document.getElementById('ig').value=cfg.instagram||'';
-  document.getElementById('maps').value=cfg.maps||'';
-}
+      `;
 
-function upd(id,campo,val){const h=habs.find(h=>h.id===id);if(h)h[campo]=val;}
+      if (c.fotos.length > 1) {
+        carTimers[c.id] =
+          setInterval(
+            () => mover(c.id,1),
+            3500
+          );
+      }
 
-function subirFotos(id,input){
-  const files=Array.from(input.files);if(!files.length)return;
-  const h=habs.find(h=>h.id===id);if(!h)return;
-  let n=0;
-  files.forEach(file=>{
-    const r=new FileReader();
-    r.onload=e=>{h.fotos.push({data:e.target.result,nombre:file.name});n++;if(n===files.length){render();msg(`📸 ${n} foto(s) agregada(s)`);}}; 
-    r.readAsDataURL(file);
+    } else {
+
+      fotosHTML = `
+        <div class="sin-foto">
+          <div style="font-size:3rem">🏠</div>
+          <div style="margin-top:8px">
+            Foto próximamente
+          </div>
+        </div>
+      `;
+    }
+
+    card.innerHTML = `
+      <div class="room-img-wrap">
+        ${fotosHTML}
+
+        <span class="room-badge ${featured?'badge-gold':''}">
+          ${c.tipo}
+        </span>
+      </div>
+
+      <div class="room-body">
+
+        <p class="room-type">
+          ${c.tipo}
+        </p>
+
+        <h3 class="room-name">
+          ${c.nombre}
+        </h3>
+
+        <p class="room-desc">
+          ${c.desc || ''}
+        </p>
+
+        <ul class="room-tags">
+          <li>👥 ${c.cap || '2 personas'}</li>
+          <li>🍳 Cocina</li>
+          <li>🛋️ Sala</li>
+          <li>🚿 Baño privado</li>
+        </ul>
+
+        <a
+          href="#reservar"
+          class="btn ${featured?'btn-gold':'btn-dark'} room-btn"
+        >
+          Consultar disponibilidad
+        </a>
+
+      </div>
+    `;
+
+    grid.appendChild(card);
+
+    const opt =
+      document.createElement('option');
+
+    opt.value = c.nombre;
+    opt.textContent = c.nombre;
+
+    selectHab.appendChild(opt);
+
+    const li =
+      document.createElement('li');
+
+    li.textContent = c.nombre;
+
+    footerH.appendChild(li);
   });
+
+  // CARRUSEL
+  window.mover = function(id, dir) {
+
+    const c =
+      mostrar.find(c => c.id === id);
+
+    if (!c || c.fotos.length <= 1)
+      return;
+
+    carIdx[id] =
+      (carIdx[id] + dir + c.fotos.length)
+      % c.fotos.length;
+
+    const sl =
+      document.getElementById(
+        'cs-' + id
+      );
+
+    const dots =
+      document.getElementById(
+        'cd-' + id
+      );
+
+    if (sl) {
+      sl.style.transform =
+        `translateX(-${carIdx[id]*100}%)`;
+    }
+
+    if (dots) {
+
+      dots
+        .querySelectorAll('span')
+        .forEach(
+          (d,i) =>
+            d.className =
+              i === carIdx[id]
+                ? 'activo'
+                : ''
+        );
+    }
+  };
+
+  // CONFIGURACIÓN
+  const wa =
+    cfg.whatsapp ||
+    '593960851813';
+
+  const ig =
+    cfg.instagram ||
+    'https://www.instagram.com/';
+
+  document.getElementById(
+    'wa-link'
+  ).href =
+    `https://wa.me/${wa}`;
+
+  document.getElementById(
+    'wa-float'
+  ).href =
+    `https://wa.me/${wa}`;
+
+  document.getElementById(
+    'ig-link'
+  ).href = ig;
+
+  document.getElementById(
+    'ig-footer'
+  ).href = ig;
+
+  if (cfg.maps) {
+
+    document.getElementById(
+      'maps-link'
+    ).href = cfg.maps;
+  }
+
+  // RESERVA POR WHATSAPP
+  document.getElementById(
+    'btnReservar'
+  ).addEventListener(
+    'click',
+    () => {
+
+      const nombre =
+        document.getElementById(
+          'nombre'
+        ).value.trim();
+
+      const habitacion =
+        document.getElementById(
+          'habitacion'
+        ).value.trim();
+
+      const llegada =
+        document.getElementById(
+          'llegada'
+        ).value;
+
+      const salida =
+        document.getElementById(
+          'salida'
+        ).value;
+
+      const personas =
+        document.getElementById(
+          'personas'
+        ).value;
+
+      const telefono =
+        document.getElementById(
+          'telefono'
+        ).value.trim();
+
+      const mensajeExtra =
+        document.getElementById(
+          'mensaje'
+        ).value.trim();
+
+      if (
+        !nombre ||
+        !habitacion ||
+        !llegada ||
+        !salida ||
+        !personas ||
+        !telefono
+      ) {
+
+        alert(
+          'Por favor completa tu nombre, habitación, fechas, número de personas y WhatsApp.'
+        );
+
+        return;
+      }
+
+      const formatearFecha =
+        (fecha) => {
+
+          const [
+            anio,
+            mes,
+            dia
+          ] = fecha.split('-');
+
+          return `${dia}/${mes}/${anio}`;
+        };
+
+      const mensaje = [
+        'Hola, quisiera consultar disponibilidad en El Remanso.',
+        '',
+        `👤 Nombre: ${nombre}`,
+        `🏠 Habitación: ${habitacion}`,
+        `📅 Llegada: ${formatearFecha(llegada)}`,
+        `📅 Salida: ${formatearFecha(salida)}`,
+        `👥 Personas: ${personas}`,
+        `📱 Mi WhatsApp: ${telefono}`,
+        mensajeExtra
+          ? `💬 Mensaje: ${mensajeExtra}`
+          : ''
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      const url =
+        `https://wa.me/${wa}?text=${encodeURIComponent(mensaje)}`;
+
+      window.open(
+        url,
+        '_blank'
+      );
+    }
+  );
+
+  // ANIMACIONES
+  const style =
+    document.createElement('style');
+
+  style.textContent =
+    `.visible{
+      opacity:1!important;
+      transform:translateY(0)!important;
+    }`;
+
+  document.head.appendChild(style);
+
+  const observer =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(e => {
+
+          if (e.isIntersecting) {
+
+            e.target.classList.add(
+              'visible'
+            );
+
+            observer.unobserve(
+              e.target
+            );
+          }
+        });
+
+      },
+      {threshold:0.12}
+    );
+
+  document
+    .querySelectorAll(
+      '.room-card,.gallery-item,.section-header'
+    )
+    .forEach(el => {
+
+      el.style.opacity = '0';
+
+      el.style.transform =
+        'translateY(24px)';
+
+      el.style.transition =
+        'opacity .6s ease,transform .6s ease';
+
+      observer.observe(el);
+    });
 }
-
-function quitarFoto(id,i){if(!confirm('¿Quitar?'))return;habs.find(h=>h.id===id).fotos.splice(i,1);render();}
-function borrar(id){if(!confirm('¿Eliminar habitación?'))return;habs=habs.filter(h=>h.id!==id);render();}
-function agregar(){habs.push({id:Date.now(),nombre:'Nueva habitación',tipo:'Habitación',desc:'Descripción.',cap:'2 personas',fotos:[]});render();}
-function guardar(){localStorage.setItem('habs_v2',JSON.stringify(habs));msg('✅ ¡Guardado!');}
-function guardarCfg(){cfg={whatsapp:document.getElementById('wa').value,instagram:document.getElementById('ig').value,maps:document.getElementById('maps').value};localStorage.setItem('cfg',JSON.stringify(cfg));msg('✅ ¡Info guardada!');}
-function msg(t){const el=document.getElementById('msg');el.textContent=t;el.style.display='inline-block';setTimeout(()=>el.style.display='none',3500);}
-
-render();
 </script>
+
 </body>
 </html>

@@ -1,5 +1,6 @@
 {
   "portada": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7972.jpg",
+
   "cabanas": [
     {
       "id": 10,
@@ -47,7 +48,7 @@
       "tipo": "Matrimonial",
       "nombre": "Habitación Matrimonial 6",
       "desc": "Ambiente íntimo y acogedor. Cocina, sala y baño privado incluidos.",
-      "cap": "2 personas", 
+      "cap": "2 personas",
       "fotos": [
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7962.jpg",
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7963.jpg",
@@ -55,7 +56,7 @@
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7965.jpg"
       ]
     },
-    {  
+    {
       "id": 8,
       "tipo": "Matrimonial",
       "nombre": "Habitación Matrimonial 8",
@@ -63,7 +64,7 @@
       "cap": "2 personas",
       "fotos": [
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7966.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7967.jpg", 
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7967.jpg",
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7968.jpg"
       ]
     },
@@ -77,23 +78,41 @@
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7947.jpg",
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7948.jpg",
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7949.jpg",
-        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7950.jpg"  
+        "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7950.jpg"
       ]
     }
   ],
+
   "instalaciones": [
-    {"nombre": "Piscina", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7972.jpg"},
-    {"nombre": "Área social", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7973.jpg"},
-    {"nombre": "Jardín", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7974.jpg"},
-    {"nombre": "Acceso a la playa", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7975.jpg"},  
-    {"nombre": "Zona de descanso", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7976.jpg"},
-    {"nombre": "Exterior", "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7977.jpg"}
+    {
+      "nombre": "Piscina",
+      "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7972.jpg"
+    },
+    {
+      "nombre": "Área social",
+      "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7973.jpg"
+    },
+    {
+      "nombre": "Jardín",
+      "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7974.jpg"
+    },
+    {
+      "nombre": "Acceso a la playa",
+      "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7975.jpg"
+    },
+    {
+      "nombre": "Zona de descanso",
+      "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7976.jpg"
+    },
+    {
+      "nombre": "Exterior",
+      "foto": "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7977.jpg"
+    }
   ],
+
   "cfg": {
-    "whatsapp": "593963560568",  
+    "whatsapp": "593960851813",
     "instagram": "https://www.instagram.com/",
-    "maps": "https://www.google.com/maps/search/Tonsupa+Esmeraldas+Ecuador"
+    "maps": "https://maps.app.goo.gl/Hk12MXrNQD2WxJwTA"
   }
 }
-EOF  
-echo "Listo"
