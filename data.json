@@ -6,7 +6,7 @@
       "id": 10,
       "tipo": "Triple",
       "nombre": "Cabaña 10",
-      "desc": "Amplia cabaña para grupos. Cocina completa, sala de estar y baño privado.",
+      "desc": "Amplia y confortable cabaña ideal para familias y grupos. Cuenta con cocina completamente equipada, sala de estar, baño privado y espacios cómodos para disfrutar de una estadía tranquila y agradable cerca de la playa.",
       "cap": "3 personas",
       "fotos": [
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7928.jpg",
@@ -14,11 +14,12 @@
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7931.jpg"
       ]
     },
+
     {
       "id": 11,
       "tipo": "Triple",
       "nombre": "Cabaña 11",
-      "desc": "Cabaña espaciosa ideal para familias. Cocina completa, sala y baño privado.",
+      "desc": "Cabaña espaciosa y acogedora, ideal para familias que buscan comodidad durante su estadía. Dispone de cocina completa, sala de estar, baño privado y un ambiente tranquilo para descansar y disfrutar de sus vacaciones en Tonsupa.",
       "cap": "3 personas",
       "fotos": [
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7958.jpg",
@@ -27,11 +28,12 @@
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7961.jpg"
       ]
     },
+
     {
       "id": 4,
       "tipo": "Doble",
       "nombre": "Departamento Doble 4",
-      "desc": "Cómodo departamento para parejas o amigos. Cocina, sala y baño privado.",
+      "desc": "Cómodo departamento pensado para parejas, amigos o pequeñas familias. Cuenta con cocina, sala de estar y baño privado, ofreciendo un espacio práctico, tranquilo y confortable para disfrutar de una agradable estadía cerca del mar.",
       "cap": "2 personas",
       "fotos": [
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7932.jpg",
@@ -43,11 +45,12 @@
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7938.jpg"
       ]
     },
+
     {
       "id": 6,
       "tipo": "Matrimonial",
       "nombre": "Habitación Matrimonial 6",
-      "desc": "Ambiente íntimo y acogedor. Cocina, sala y baño privado incluidos.",
+      "desc": "Ambiente íntimo, acogedor y confortable, ideal para parejas. Dispone de cocina, sala de estar y baño privado, creando un espacio práctico y tranquilo para descansar después de disfrutar de la playa y de los atractivos de Tonsupa.",
       "cap": "2 personas",
       "fotos": [
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7962.jpg",
@@ -56,11 +59,12 @@
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7965.jpg"
       ]
     },
+
     {
       "id": 8,
       "tipo": "Matrimonial",
       "nombre": "Habitación Matrimonial 8",
-      "desc": "Espacio romántico con todo lo necesario. Cocina, sala y baño privado.",
+      "desc": "Espacio romántico, tranquilo y acogedor para disfrutar de una estadía especial en pareja. Cuenta con cocina, sala de estar y baño privado, ofreciendo comodidad y privacidad para relajarse y disfrutar de la cercanía del mar.",
       "cap": "2 personas",
       "fotos": [
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7966.jpg",
@@ -68,11 +72,12 @@
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7968.jpg"
       ]
     },
+
     {
       "id": 12,
       "tipo": "Matrimonial",
       "nombre": "Habitación Matrimonial 12",
-      "desc": "Habitación acogedora para una estadía perfecta. Cocina, sala y baño privado.",
+      "desc": "Habitación acogedora y confortable, pensada para disfrutar de una estadía tranquila y agradable. Dispone de cocina, sala de estar y baño privado, ofreciendo un ambiente cómodo para descansar y disfrutar de unos días de relajación en Tonsupa.",
       "cap": "2 personas",
       "fotos": [
         "https://res.cloudinary.com/yejx4eyi/image/upload/v1786337546/IMG_7947.jpg",
@@ -111,7 +116,7 @@
   ],
 
   "cfg": {
-    "whatsapp": "593960851813",
+    "whatsapp": "593963560568",
     "instagram": "https://www.instagram.com/",
     "maps": "https://maps.app.goo.gl/Hk12MXrNQD2WxJwTA"
   }
